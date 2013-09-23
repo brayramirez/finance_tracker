@@ -1,0 +1,23 @@
+# == Schema Information
+#
+# Table name: daily_records
+#
+#  id               :integer          not null, primary key
+#  transaction_date :date
+#  budget           :decimal(10, 2)   default(0.0)
+#  expenses         :decimal(10, 2)   default(0.0)
+#  notes            :text
+#  user_id          :integer
+#  created_at       :datetime
+#  updated_at       :datetime
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  transaction_date: 2013-08-26
+  notes: MyText
+
+two:
+  transaction_date: 2013-08-26
+  notes: MyText

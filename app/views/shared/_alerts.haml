@@ -1,0 +1,9 @@
+- if notice.present?
+  .alert.alert-block.alert-info
+    = link_to 'x', '#', :class => 'close', :data => { :dismiss => 'alert'}
+    = notice
+
+- if alert.present?
+  .alert.alert-block.alert-error
+    = link_to 'x', '#', :class => 'close', :data => { :dismiss => 'alert'}
+    = alert

@@ -1,0 +1,4 @@
+$('#line-item-modal').modal('hide');
+$('#line-item-modal-container').html('');
+$("#line-item-list #line-item-<%= @line_item.id %>").replaceWith("<%= j(render :partial => 'line_items/line_item', :locals => { :line_item => @line_item.decorate }) %>");
+$('#record-expenses').html("<%= j(render :partial => 'daily_records/total_expenses', :locals => { :daily_record => @daily_record }) %>");
