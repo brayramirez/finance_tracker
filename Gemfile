@@ -5,9 +5,6 @@ gem 'rails', '4.0.0'
 
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'
-group :production do
-  gem 'pg'
-end
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -38,8 +35,9 @@ gem 'bootstrap-sass', '~> 2.3.2.1'
 
 gem 'draper', '~> 1.2.1'
 
-gem 'annotate', '~> 2.5.0'
+gem 'thin'
 
+gem 'pg'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -48,8 +46,8 @@ end
 
 
 group :development do
+  gem 'annotate', '~> 2.5.0'
   gem 'mysql2'
-  gem 'thin'
   gem 'faker'
 end
 
