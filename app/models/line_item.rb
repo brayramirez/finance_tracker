@@ -25,7 +25,8 @@ class LineItem < ActiveRecord::Base
 private
 
   def update_total_expenses
-    self.daily_record.update_attributes :expenses => self.daily_record.line_items.sum(:amount)
+    self.daily_record.update_attributes(
+      :expenses => self.daily_record.line_items.sum(:amount))
   end
 
 end
