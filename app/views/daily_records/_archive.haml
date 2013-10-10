@@ -9,4 +9,4 @@
             %ul.unstyled
               - months.sort.reverse.each do |month|
                 %li
-                  = link_to Date::MONTHNAMES[month], records_archive_path(year, month), :class => "#{'text-warning' if month.to_i == selected_month.to_i}"
+                  = link_to Date::MONTHNAMES[month], records_archive_path(year.to_i, month.to_i), :class => "#{'text-warning' if month.to_i == selected_month.to_i}"

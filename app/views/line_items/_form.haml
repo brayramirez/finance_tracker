@@ -9,7 +9,7 @@
     .control-group
       = f.label :amount, :class => 'control-label'
       .controls
-        = f.number_field :amount
+        = f.text_field :amount
   .modal-footer
     = f.submit 'Save', :class => 'btn btn-primary'
     = link_to 'Close', '#', :class => 'btn', :data => { :dismiss => 'modal' }

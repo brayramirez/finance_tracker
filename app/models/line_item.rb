@@ -14,7 +14,11 @@ class LineItem < ActiveRecord::Base
 
   after_save :update_total_expenses
 
+
   belongs_to :daily_record
+
+
+  validates :amount, :numericality => true
 
 
 
