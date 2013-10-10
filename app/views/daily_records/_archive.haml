@@ -3,7 +3,7 @@
     - archive.each do |year, months|
       .accordion-group
         .accordion-heading
-          = link_to year, "#year-#{year.to_i}", :class => 'accordion-toggle', :data => { :toggle => 'collapse', :parent => '#archive-accordion' }
+          = link_to year.to_i, "#year-#{year.to_i}", :class => 'accordion-toggle', :data => { :toggle => 'collapse', :parent => '#archive-accordion' }
         .accordion-body.collapse{ :id => "year-#{year.to_i}", :class => "#{'in' if year.to_i == selected_year.to_i}" }
           .accordion-inner
             %ul.unstyled
