@@ -17,7 +17,7 @@ class DailyRecord < ActiveRecord::Base
   has_many :line_items
 
 
-  default_scope { order("transaction_date DESC") }
+  # default_scope { order("transaction_date DESC") }
 
 
   validates_uniqueness_of :transaction_date, :scope => :user_id

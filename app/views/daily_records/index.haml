@@ -30,4 +30,4 @@
           %th Notes
           %th
       %tbody
-        = render @daily_records.decorate
+        = render DailyRecordDecorator.decorate_collection(@daily_records.sort.reverse)

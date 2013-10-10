@@ -7,6 +7,6 @@
         .accordion-body.collapse{ :id => "year-#{year}", :class => "#{'in' if year.to_i == selected_year.to_i}" }
           .accordion-inner
             %ul.unstyled
-              - months.each do |month|
+              - months.sort.reverse.each do |month|
                 %li
                   = link_to Date::MONTHNAMES[month], records_archive_path(year, month), :class => "#{'text-warning' if month.to_i == selected_month.to_i}"
