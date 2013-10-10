@@ -26,7 +26,7 @@ class DailyRecord < ActiveRecord::Base
 
   class << self
     def find_by_year_and_month year, month
-      where("YEAR(transaction_date) = #{year} AND MONTH(transaction_date) = #{month}")
+      where("#{sql_year} = #{year} AND #{sql_month} = #{month}")
     end
 
 
@@ -44,13 +44,23 @@ class DailyRecord < ActiveRecord::Base
 
 
     def year_archives
-      pluck("DISTINCT YEAR(transaction_date) as year")
+      pluck("DISTINCT #{sql_year} as year")
     end
 
 
     def month_archives year
-      where("YEAR(transaction_date) = #{year}").
-        pluck("DISTINCT MONTH(transaction_date) as month")
+      where("#{sql_year} = #{year}").
+        pluck("DISTINCT #{sql_month} as month")
+    end
+
+
+    def sql_year
+      Rails.env == 'production' ? "EXTRACT(YEAR FROM transaction_date)" : "YEAR(transaction_date)"
+    end
+
+
+    def sql_month
+      Rails.env == 'production' ? "EXTRACT(MONTH FROM transaction_date)" : "MONTH(transaction_date)"
     end
 
   end
