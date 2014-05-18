@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20140501081848) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "cutoffs", force: true do |t|
     t.text     "notes"
     t.date     "date_from"
@@ -42,8 +45,8 @@ ActiveRecord::Schema.define(version: 20140501081848) do
   add_index "daily_records", ["cutoff_id"], name: "index_daily_records_on_cutoff_id", using: :btree
 
   create_table "line_items", force: true do |t|
-    t.text     "description",     default: "0"
-    t.decimal  "amount"
+    t.text     "description"
+    t.decimal  "amount",          precision: 10, scale: 2, default: 0.0
     t.integer  "daily_record_id"
     t.datetime "created_at"
     t.datetime "updated_at"

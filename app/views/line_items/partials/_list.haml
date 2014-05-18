@@ -2,7 +2,8 @@
 	.pull-right
 		=link_to 'New Line Item',
 			[:new, daily_record, :line_item],
-			:class => 'btn btn-primary'
+			:class => 'btn btn-primary',
+			:remote => true
 
 	.clearfix
 
@@ -12,6 +13,6 @@
 				%th Description
 				%th Amount
 				%th
-		%tbody
+		%tbody#js-line-item-list
 			=render :partial => 'line_items/partials/line_item',
 				:collection => daily_record.line_items

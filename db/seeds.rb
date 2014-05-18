@@ -4,7 +4,9 @@ user = User.create :email => "user@email.com", :password => 'password',
   :password_confirmation => 'password'
 
 
-cutoff = user.cutoffs.new :date_from => '2014-05-01'.to_date, :date_to => '2014-05-15'.to_date, :budget => 10000, :savings => 5000, :expenses => 5000
+cutoff = user.cutoffs.new :date_from => '2014-05-01'.to_date
+         :date_to => '2014-05-15'.to_date
+         :budget => 10000, :savings => 5000, :expenses => 5000
 
 # 3.times do |u|
 #   user = User.create :email => "user#{u}@email.com", :password => 'password',
