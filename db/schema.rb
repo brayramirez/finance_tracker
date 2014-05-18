@@ -11,29 +11,43 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130901124146) do
+ActiveRecord::Schema.define(version: 20140501081848) do
 
-  create_table "daily_records", force: true do |t|
-    t.date     "transaction_date"
-    t.decimal  "budget",           precision: 10, scale: 2, default: 0.0
-    t.decimal  "expenses",         precision: 10, scale: 2, default: 0.0
+  create_table "cutoffs", force: true do |t|
     t.text     "notes"
+    t.date     "date_from"
+    t.date     "date_to"
+    t.integer  "year_from"
+    t.integer  "month_from"
+    t.decimal  "budget",     precision: 10, scale: 2, default: 0.0
+    t.decimal  "savings",    precision: 10, scale: 2, default: 0.0
+    t.decimal  "expenses",   precision: 10, scale: 2, default: 0.0
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "daily_records", ["user_id"], name: "index_daily_records_on_user_id", using: :btree
+  add_index "cutoffs", ["user_id"], name: "index_cutoffs_on_user_id", using: :btree
 
-  create_table "line_items", force: true do |t|
-    t.decimal  "amount",          precision: 10, scale: 2, default: 0.0
-    t.text     "description"
-    t.integer  "daily_record_id"
+  create_table "daily_records", force: true do |t|
+    t.text     "notes"
+    t.date     "transaction_date"
+    t.decimal  "budget",           precision: 10, scale: 2, default: 0.0
+    t.decimal  "expenses",         precision: 10, scale: 2, default: 0.0
+    t.integer  "cutoff_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "line_items", ["daily_record_id"], name: "index_line_items_on_daily_record_id", using: :btree
+  add_index "daily_records", ["cutoff_id"], name: "index_daily_records_on_cutoff_id", using: :btree
+
+  create_table "line_items", force: true do |t|
+    t.text     "description",     default: "0"
+    t.decimal  "amount"
+    t.integer  "daily_record_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

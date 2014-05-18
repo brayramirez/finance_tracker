@@ -16,7 +16,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
+gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -31,7 +31,7 @@ gem "devise", "~> 3.0.3"
 
 gem 'haml', '~> 4.0.3'
 
-gem 'bootstrap-sass', '~> 2.3.2.1'
+gem 'bootstrap-sass', '~> 3.1.1'
 
 gem 'draper', '~> 1.2.1'
 
@@ -47,7 +47,6 @@ end
 
 group :development do
   gem 'annotate', '~> 2.5.0'
-  gem 'mysql2'
   gem 'faker'
 end
 

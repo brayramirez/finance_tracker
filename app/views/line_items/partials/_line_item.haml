@@ -1,0 +1,8 @@
+%tr
+	%td= line_item.notes
+	%td= number_with_precision(line_item.amount, :precision => 2)
+	%td
+		=link_to 'Edit', [:edit, line_item]
+		=link_to 'Delete', line_item,
+			:date => {:method => :delete,
+				:confirm => 'Delete this record?'}

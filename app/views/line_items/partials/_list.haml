@@ -1,0 +1,17 @@
+.col-md-12
+	.pull-right
+		=link_to 'New Line Item',
+			[:new, daily_record, :line_item],
+			:class => 'btn btn-primary'
+
+	.clearfix
+
+	%table.table.table-striped.table-hover.table-condensed
+		%thead
+			%tr
+				%th Description
+				%th Amount
+				%th
+		%tbody
+			=render :partial => 'line_items/partials/line_item',
+				:collection => daily_record.line_items

@@ -3,11 +3,11 @@
 # Table name: daily_records
 #
 #  id               :integer          not null, primary key
+#  notes            :text
 #  transaction_date :date
 #  budget           :decimal(10, 2)   default(0.0)
 #  expenses         :decimal(10, 2)   default(0.0)
-#  notes            :text
-#  user_id          :integer
+#  cutoff_id        :integer
 #  created_at       :datetime
 #  updated_at       :datetime
 #
@@ -15,9 +15,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  transaction_date: 2013-08-26
   notes: MyText
+  transaction_date: 2014-05-01
+  budget: 9.99
+  expenses: 9.99
 
 two:
-  transaction_date: 2013-08-26
   notes: MyText
+  transaction_date: 2014-05-01
+  budget: 9.99
+  expenses: 9.99

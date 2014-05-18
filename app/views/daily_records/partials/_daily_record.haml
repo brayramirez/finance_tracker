@@ -1,0 +1,10 @@
+%tr
+	%td= link_to daily_record.transaction_date, daily_record
+	%td= daily_record.budget
+	%td= number_with_precision(daily_record.line_items.sum(:amount),
+		:precision => 2)
+	%td
+		=link_to 'Edit', [:edit, daily_record]
+		=link_to 'Delete', daily_record,
+			:data => {:method => :delete,
+				:confirm => 'Delete this record?'}

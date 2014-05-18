@@ -25,6 +25,6 @@ class User < ActiveRecord::Base
          :rememberable, :trackable, :validatable
 
 
-  has_many :daily_records
+  has_many :cutoffs
 
 end
