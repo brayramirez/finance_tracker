@@ -3,7 +3,8 @@ class LineItemsController < ApplicationController
   layout false
 
 
-  before_filter :get_daily_record
+  before_filter :get_daily_record, :only => [:new, :create]
+  before_filter :get_line_item, :only => [:edit, :update, :destroy]
 
 
   def show
@@ -30,13 +31,10 @@ class LineItemsController < ApplicationController
 
 
   def edit
-    @line_item = @daily_record.line_items.find params[:id]
   end
 
 
   def update
-    @line_item = @daily_record.line_items.find params[:id]
-
     if @line_item.update_attributes line_item_params
       respond_to do |format|
         format.js
@@ -48,10 +46,9 @@ class LineItemsController < ApplicationController
 
 
   def destroy
-    @line_item = @daily_record.line_items.find params[:id]
     @line_item.destroy
 
-    redirect_to @daily_record
+    redirect_to @line_item.daily_record
   end
 
 
@@ -60,6 +57,11 @@ private
 
   def get_daily_record
     @daily_record = DailyRecord.find params[:daily_record_id]
+  end
+
+
+  def get_line_item
+    @line_item = LineItem.find params[:id]
   end
 
 
