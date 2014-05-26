@@ -1,3 +1,8 @@
+-#
+-# locals:
+-#   line_item
+-#
+
 %tr{:id => "line-item-#{line_item.id}"}
 	%td= line_item.description
 	%td= number_with_precision(line_item.amount, :precision => 2)

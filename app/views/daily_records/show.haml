@@ -6,7 +6,9 @@
 			%dt Budget
 			%dd= number_with_precision(@daily_record.budget, :precision => 2)
 			%dt Total Expense
-			%dd= number_with_precision(@daily_record.expenses, :precision => 2)
+			%dd{:id => "js-daily-record-#{@daily_record.id}"}
+				=render :partial => '/daily_records/partials/expenses',
+					:locals => {:daily_record => @daily_record}
 			%dt Notes
 			%dd= @daily_record.notes
 

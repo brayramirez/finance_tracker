@@ -15,12 +15,12 @@
 	.pull-right
 		=link_to 'Edit Cutoff', [:edit, @cutoff],
 			:class => 'btn btn-success'
-		=link_to 'New Cutoff', new_cutoff_path,
-			:class => 'btn btn-primary'
 		=link_to 'Delete', @cutoff,
 			:class => 'btn btn-danger',
 			:data => {:method => :delete,
 				:confirm => 'Delete this record?'}
+		=link_to 'New Cutoff', new_cutoff_path,
+			:class => 'btn btn-primary'
 
 	.clearfix
 

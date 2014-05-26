@@ -2,3 +2,4 @@ $('#js-modal').modal('hide');
 $('#js-modal-container').html('');
 $('#js-modal-title').html('');
 $("#js-line-item-list #line-item-<%= @line_item.id %>").replaceWith("<%= j(render :partial => 'line_items/partials/line_item', :locals => {:line_item => @line_item}) %>");
+$("#js-daily-record-<%= @line_item.daily_record_id %>").html("<%= j(render :partial => '/daily_records/partials/expenses', :locals => {:daily_record => @line_item.daily_record}) %>");
