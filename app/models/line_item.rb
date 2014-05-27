@@ -3,9 +3,10 @@
 # Table name: line_items
 #
 #  id              :integer          not null, primary key
-#  description     :text             default("0")
-#  amount          :decimal(, )
+#  description     :text
+#  amount          :decimal(10, 2)   default(0.0)
 #  daily_record_id :integer
+#  category_id     :integer
 #  created_at      :datetime
 #  updated_at      :datetime
 #

@@ -1,11 +1,11 @@
 - if notice.present?
   .alert.alert-info.alert-dismissable
-    = link_to 'x', '#', :class => 'close',
-    	:data => { :dismiss => 'alert'}
-    = notice
+    =link_to 'x', '#', :class => 'close',
+    	:data => {:dismiss => 'alert'}
+    =notice
 
 - if alert.present?
-  .alert.alert-error.alert-dismissable
-    = link_to 'x', '#', :class => 'close',
-    	:data => { :dismiss => 'alert'}
-    = alert
+  .alert.alert-danger.alert-dismissable
+    =link_to 'x', '#', :class => 'close',
+    	:data => {:dismiss => 'alert'}
+    =alert
