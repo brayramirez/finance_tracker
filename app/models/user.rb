@@ -26,5 +26,6 @@ class User < ActiveRecord::Base
 
 
   has_many :cutoffs
+  has_many :categories
 
 end

@@ -14,6 +14,7 @@
 class LineItem < ActiveRecord::Base
 
 	belongs_to :daily_record
+	belongs_to :category
 
 
 	after_save :refresh_daily_record

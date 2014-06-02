@@ -1,7 +1,11 @@
 require 'faker'
 
-user = User.create :email => "user@email.com", :password => 'password',
-  :password_confirmation => 'password'
+admin = User.create :email => 'bmon.ramirez@gmail.com',
+	:password => 'password', :password_confirmation => 'password',
+	:admin => true
+
+user = User.create :email => 'user@email.com',
+	:password => 'password', :password_confirmation => 'password'
 
 
 # cutoff = user.cutoffs.new :date_from => '2014-05-01'.to_date

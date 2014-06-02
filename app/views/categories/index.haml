@@ -1,0 +1,26 @@
+.page-header
+	.pull-left
+		%h2 Categories
+
+	.pull-right
+		=link_to 'New Category',
+			[:new, :category],
+			:class => 'btn btn-primary'
+
+	.clearfix
+
+.row
+	%table.table-table-striped.table-hover.table-condensed
+		%thead
+			%tr
+				%th Label
+				%th
+		%tbody
+			-@categories.each do |category|
+				%tr
+					%td= category
+					%td
+						=link_to 'Edit', [:edit, category]
+						=link_to 'Delete', daily_record,
+							:data => {:method => :delete,
+								:confirm => 'Delete this record?'}

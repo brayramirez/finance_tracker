@@ -12,5 +12,13 @@
 class Category < ActiveRecord::Base
 
   belongs_to :user
-  
+
+  has_many :line_items
+
+
+
+  def to_s
+  	self.label
+  end
+
 end

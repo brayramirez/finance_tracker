@@ -3,6 +3,7 @@ FinanceTracker::Application.routes.draw do
   devise_for :users
 
   # get 'transaction/:year/:month' => 'daily_records#index', :as => 'records_archive'
+  resources :categories
 
   resources :cutoffs do
     resources :daily_records, :only => [:new, :create]
@@ -13,6 +14,12 @@ FinanceTracker::Application.routes.draw do
   end
 
   resources :line_items, :except => [:new, :create]
+
+  resources :users, :only => [:edit]
+
+  namespace :admin do
+    resources :users
+  end  
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

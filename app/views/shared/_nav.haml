@@ -5,6 +5,12 @@
         =link_to 'Finance Tracker', root_path,
           :class => 'navbar-brand'
       .navbar-collapse
+        %ul.nav.navbar-nav.navbar-left
+          -#  %li
+          -#    =link_to 'Categories', :categories
+          -if current_user.admin?
+            %li
+              =link_to 'Users', [:admin, :users]
         %ul.nav.navbar-nav.navbar-right
           %li.navbar-text
             ="Welcome #{current_user.email}!"
