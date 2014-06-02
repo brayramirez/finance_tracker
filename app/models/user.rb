@@ -15,6 +15,8 @@
 #  last_sign_in_ip        :string(255)
 #  created_at             :datetime
 #  updated_at             :datetime
+#  admin                  :boolean          default(FALSE)
+#  name                   :string(255)
 #
 
 class User < ActiveRecord::Base
@@ -27,5 +29,10 @@ class User < ActiveRecord::Base
 
   has_many :cutoffs
   has_many :categories
+
+
+  def to_s
+    self.name || self.email
+  end
 
 end

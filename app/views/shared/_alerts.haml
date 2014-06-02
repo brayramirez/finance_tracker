@@ -1,11 +1,15 @@
-- if notice.present?
+-if notice.present?
   .alert.alert-info.alert-dismissable
     =link_to 'x', '#', :class => 'close',
     	:data => {:dismiss => 'alert'}
     =notice
 
-- if alert.present?
+-if alert.present?
   .alert.alert-danger.alert-dismissable
     =link_to 'x', '#', :class => 'close',
     	:data => {:dismiss => 'alert'}
-    =alert
+    -if alert.is_a? String
+      =alert
+    -else
+      -alert.each do |msg|
+        %p= msg

@@ -15,11 +15,11 @@ FinanceTracker::Application.routes.draw do
 
   resources :line_items, :except => [:new, :create]
 
-  resources :users, :only => [:edit]
+  resources :users, :only => [:edit, :update]
 
   namespace :admin do
     resources :users
-  end  
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
