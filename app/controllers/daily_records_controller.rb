@@ -57,8 +57,8 @@ private
 	end
 
 	def daily_record_params
-		params.require(:daily_record).permit(:transaction_date,
-			:budget, :notes)
+		params.require(:daily_record).permit :transaction_date,
+			:budget, :notes
 	end
 
 end

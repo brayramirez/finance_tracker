@@ -66,8 +66,7 @@ private
 
 
   def line_item_params
-    params.require(:line_item).
-      permit(:description, :amount)
+    params.require(:line_item).permit :description, :amount
   end
 
 end

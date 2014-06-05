@@ -1,0 +1,29 @@
+.page-header
+  .pull-left
+    %h2 Users
+
+  .pull-right
+    =link_to 'New User',
+      [:new, :admin, :user],
+      :class => 'btn btn-primary'
+
+  .clearfix
+
+.row
+  .col-md-12
+    %table.table.table-striped.table-hover.table-condensed
+      %thead
+        %tr
+          %th Name
+          %th Email
+          %th
+      %tbody
+        -@users.each do |user|
+          %tr
+            %td= user.name
+            %td= user.email
+            %td
+              =link_to 'Edit', [:edit, :admin, user]
+              =link_to 'Delete', [:admin, user],
+                :data => {:method => :delete,
+                  :confirm => 'Delete this record?'}

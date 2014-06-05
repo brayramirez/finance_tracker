@@ -1,6 +1,6 @@
 require 'faker'
 
-admin = User.create :email => 'bmon.ramirez@gmail.com',
+admin = User.create :email => 'admin@email.com',
 	:password => 'password', :password_confirmation => 'password',
 	:admin => true
 

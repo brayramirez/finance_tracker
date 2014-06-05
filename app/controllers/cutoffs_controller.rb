@@ -57,8 +57,8 @@ private
 
 
 	def cutoff_params
-		params.require(:cutoff).permit(:date_from, :date_to,
-			:budget, :savings, :notes)
+		params.require(:cutoff).permit :date_from, :date_to,
+			:budget, :savings, :notes
 	end
 
 end

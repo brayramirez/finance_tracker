@@ -22,9 +22,19 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :registerable, :recoverable,
-  # :lockable, :timeoutable and :omniauthable
+  # :lockable, :timeoutable and :omniauthable, :validatable
   devise :database_authenticatable,
-         :rememberable, :trackable, :validatable
+         :rememberable, :trackable
+
+
+  # validates :password,
+  #           :presence => {:on => :update},
+  #           :length => {:minimum => 6, :allow_nil => true},
+  #           :confirmation => true
+  validates_presence_of :password, :on => :create
+  validates_length_of :password, :minimum => 6,
+    :allow_nil => true, :on => :create
+  validates :password, :confirmation => Proc.new { |object| object.password.present? }
 
 
   has_many :cutoffs
@@ -32,7 +42,12 @@ class User < ActiveRecord::Base
 
 
   def to_s
-    self.name || self.email
+    self.name.present? ? self.name : self.email
+  end
+
+
+  def non_admin?
+    !self.admin?
   end
 
 end

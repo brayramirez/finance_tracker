@@ -56,7 +56,7 @@ private
 
 
 	def category_params
-		params.require(:category).permit(:label)
+		params.require(:category).permit :label
 	end
 
 end
