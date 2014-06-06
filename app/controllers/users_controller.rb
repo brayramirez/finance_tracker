@@ -8,9 +8,14 @@ class UsersController < ApplicationController
 
 
   def update
-    if @user.update_with_password user_params
+    flash[:alert] = nil
+
+    if (password_present?(params[:user]) && @user.update_with_password(user_params)) ||
+      (!password_present?(params[:user]) && @user.update(user_params))
+
       sign_in @user, :bypass => true
-      redirect_to root_path
+      flash[:notice] = 'Account updated successfully!'
+      redirect_to [:edit, @user]
     else
       flash[:alert] = @user.errors.full_messages
       render :edit
@@ -27,8 +32,17 @@ private
 
 
   def user_params
-    params.require(:user).permit :name, :password,
-      :password_confirmation, :current_password
+    if password_present? params[:user]
+      params.require(:user).permit :name, :password,
+        :password_confirmation, :current_password
+    else
+      params.require(:user).permit :name
+    end
+  end
+
+
+  def password_present? params
+    params[:password].present? || params[:password_confirmation].present?
   end
 
 end
