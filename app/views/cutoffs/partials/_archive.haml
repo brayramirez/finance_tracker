@@ -1,0 +1,21 @@
+-#
+-# locals:
+-#	 selected_year
+-#	 selected_month
+-#
+
+.col-md-2
+	.panel-group#accordion
+		-cutoffs.year_list.each do |year|
+			.panel.panel-default
+				.panel-heading
+					.panel-title
+						=link_to year.to_i, "#year-#{year}",
+							:data => {:toggle => 'collapse', :parent => '#accordion'}
+				.panel-collapse.collapse{:id => "year-#{year}",
+					:class => "#{'in' if year.to_i == selected_cutoff.date_from.year}"}
+					.panel-body
+						%ul.list-unstyled
+							-cutoffs.list_by_year(year).latest.each do |cutoff|
+								%li= link_to cutoff, cutoff,
+									:class => "#{'text-success' if cutoff == selected_cutoff}"

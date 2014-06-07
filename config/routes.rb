@@ -2,17 +2,30 @@ FinanceTracker::Application.routes.draw do
 
   devise_for :users
 
-  get 'transaction/:year/:month' => 'daily_records#index', :as => 'records_archive'
+  # get 'transaction/:year/:month' => 'daily_records#index', :as => 'records_archive'
+  resources :categories
 
-  resources :daily_records do
-    resources :line_items
+  resources :cutoffs do
+    resources :daily_records, :only => [:new, :create]
+  end
+
+  resources :daily_records, :except => [:new, :create] do
+    resources :line_items, :only => [:new, :create]
+  end
+
+  resources :line_items, :except => [:new, :create]
+
+  resources :users, :only => [:edit, :update]
+
+  namespace :admin do
+    resources :users
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'daily_records#index'
+  root 'home#show'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

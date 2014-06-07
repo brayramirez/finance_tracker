@@ -1,4 +1,5 @@
-$('#line-item-modal').modal('hide');
-$('#line-item-modal-container').html('');
-$('#line-item-list').append("<%= j(render :partial => 'line_items/line_item', :locals => { :line_item => @line_item.decorate }) %>");
-$('#record-expenses').html("<%= j(render :partial => 'daily_records/total_expenses', :locals => { :daily_record => @daily_record }) %>");
+$('#js-modal').modal('hide');
+$('#js-modal-container').html('');
+$('#js-modal-title').html('');
+$('#js-line-item-list').append("<%= j(render :partial => 'line_items/partials/line_item', :locals => {:line_item => @line_item}) %>");
+$("#js-daily-record-<%= @line_item.daily_record_id %>").html("<%= j(render :partial => '/daily_records/partials/expenses', :locals => {:daily_record => @line_item.daily_record}) %>");

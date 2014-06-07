@@ -11,33 +11,63 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130901124146) do
+ActiveRecord::Schema.define(version: 20140601064809) do
 
-  create_table "daily_records", force: true do |t|
-    t.date     "transaction_date"
-    t.decimal  "budget",           precision: 10, scale: 2, default: 0.0
-    t.decimal  "expenses",         precision: 10, scale: 2, default: 0.0
-    t.text     "notes"
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "categories", force: true do |t|
+    t.string   "label"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "daily_records", ["user_id"], name: "index_daily_records_on_user_id", using: :btree
+  add_index "categories", ["user_id"], name: "index_categories_on_user_id", using: :btree
 
-  create_table "line_items", force: true do |t|
-    t.decimal  "amount",          precision: 10, scale: 2, default: 0.0
-    t.text     "description"
-    t.integer  "daily_record_id"
+  create_table "cutoffs", force: true do |t|
+    t.text     "notes"
+    t.date     "date_from"
+    t.date     "date_to"
+    t.integer  "year_from"
+    t.integer  "month_from"
+    t.decimal  "budget",     precision: 10, scale: 2, default: 0.0
+    t.decimal  "savings",    precision: 10, scale: 2, default: 0.0
+    t.decimal  "expenses",   precision: 10, scale: 2, default: 0.0
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "cutoffs", ["user_id"], name: "index_cutoffs_on_user_id", using: :btree
+
+  create_table "daily_records", force: true do |t|
+    t.text     "notes"
+    t.date     "transaction_date"
+    t.decimal  "budget",           precision: 10, scale: 2, default: 0.0
+    t.decimal  "expenses",         precision: 10, scale: 2, default: 0.0
+    t.integer  "cutoff_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "daily_records", ["cutoff_id"], name: "index_daily_records_on_cutoff_id", using: :btree
+
+  create_table "line_items", force: true do |t|
+    t.text     "description"
+    t.decimal  "amount",          precision: 10, scale: 2, default: 0.0
+    t.integer  "daily_record_id"
+    t.integer  "category_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "line_items", ["category_id"], name: "index_line_items_on_category_id", using: :btree
   add_index "line_items", ["daily_record_id"], name: "index_line_items_on_daily_record_id", using: :btree
 
   create_table "users", force: true do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -48,6 +78,8 @@ ActiveRecord::Schema.define(version: 20130901124146) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "admin",                  default: false
+    t.string   "name"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

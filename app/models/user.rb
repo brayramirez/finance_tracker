@@ -15,16 +15,39 @@
 #  last_sign_in_ip        :string(255)
 #  created_at             :datetime
 #  updated_at             :datetime
+#  admin                  :boolean          default(FALSE)
+#  name                   :string(255)
 #
 
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :registerable, :recoverable,
-  # :lockable, :timeoutable and :omniauthable
+  # :lockable, :timeoutable and :omniauthable, :validatable
   devise :database_authenticatable,
-         :rememberable, :trackable, :validatable
+         :rememberable, :trackable
 
 
-  has_many :daily_records
+  # validates :password,
+  #           :presence => {:on => :update},
+  #           :length => {:minimum => 6, :allow_nil => true},
+  #           :confirmation => true
+  validates_presence_of :password, :on => :create
+  validates_length_of :password, :minimum => 6,
+    :allow_nil => true, :on => :create
+  validates :password, :confirmation => Proc.new { |object| object.password.present? }
+
+
+  has_many :cutoffs
+  has_many :categories
+
+
+  def to_s
+    self.name.present? ? self.name : self.email
+  end
+
+
+  def non_admin?
+    !self.admin?
+  end
 
 end

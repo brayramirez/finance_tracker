@@ -3,9 +3,10 @@
 # Table name: line_items
 #
 #  id              :integer          not null, primary key
-#  amount          :decimal(10, 2)   default(0.0)
 #  description     :text
+#  amount          :decimal(10, 2)   default(0.0)
 #  daily_record_id :integer
+#  category_id     :integer
 #  created_at      :datetime
 #  updated_at      :datetime
 #
@@ -13,11 +14,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  amount: 9.99
   description: MyText
-  daily_record_id: 
+  amount: 9.99
 
 two:
-  amount: 9.99
   description: MyText
-  daily_record_id: 
+  amount: 9.99

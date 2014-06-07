@@ -3,66 +3,58 @@
 # Table name: daily_records
 #
 #  id               :integer          not null, primary key
+#  notes            :text
 #  transaction_date :date
 #  budget           :decimal(10, 2)   default(0.0)
 #  expenses         :decimal(10, 2)   default(0.0)
-#  notes            :text
-#  user_id          :integer
+#  cutoff_id        :integer
 #  created_at       :datetime
 #  updated_at       :datetime
 #
 
 class DailyRecord < ActiveRecord::Base
 
-  has_many :line_items
+	belongs_to :cutoff
+
+	has_many :line_items, :dependent => :destroy
+
+	scope :latest, -> { order("transaction_date DESC") }
 
 
-  # default_scope { order("transaction_date DESC") }
+	validates_presence_of :transaction_date
+	validate :within_cutoff_dates
+
+	
+	after_save :refresh_cutoff
 
 
-  validates_uniqueness_of :transaction_date, :scope => :user_id
-  validates :budget, :numericality => true
+	def to_s
+		s = "#{Date::MONTHNAMES[self.transaction_date.month]} "
+		s += "#{self.transaction_date.day}, "
+		s += "#{self.transaction_date.year}"
+
+		s
+	end
 
 
-  class << self
-    def find_by_year_and_month year, month
-      where("#{sql_year} = #{year} AND #{sql_month} = #{month}")
-    end
+
+private
+
+	def within_cutoff_dates
+		if self.transaction_date && !self.cutoff.within_dates(self.transaction_date)
+			errors.add(:transaction_date, 'Date should be within Cutoff Dates')
+		end
+	end
 
 
-    def archive
-      archive = {}
-
-      self.year_archives.each do |year|
-        archive[year] = []
-
-        archive[year] = month_archives(year).map { |month| month }
-      end
-
-      archive
-    end
+	def refresh_cutoff
+		self.cutoff.update_attributes(
+			:expenses => compute_total_expense)
+	end
 
 
-    def year_archives
-      pluck("DISTINCT #{sql_year} as year")
-    end
-
-
-    def month_archives year
-      where("#{sql_year} = #{year}").
-        pluck("DISTINCT #{sql_month} as month")
-    end
-
-
-    def sql_year
-      Rails.env == 'production' ? "EXTRACT(YEAR FROM transaction_date)" : "YEAR(transaction_date)"
-    end
-
-
-    def sql_month
-      Rails.env == 'production' ? "EXTRACT(MONTH FROM transaction_date)" : "MONTH(transaction_date)"
-    end
-
-  end
-
+	def compute_total_expense
+		self.cutoff.daily_records.sum :expenses
+	end
+	
 end

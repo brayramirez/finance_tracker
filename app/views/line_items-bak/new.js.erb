@@ -1,0 +1,3 @@
+$('#line-item-modal-container').html("<%= j(render :partial => 'line_items/form', :locals => { :line_item => @line_item, :daily_record => @daily_record }) %>");
+$('#line-item-modal-label').html("New Line Item");
+$('#line-item-modal').modal('show');

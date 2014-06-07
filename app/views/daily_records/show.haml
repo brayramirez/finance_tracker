@@ -1,47 +1,29 @@
 .page-header
-  .row
-    .span5
-      %h3
-        = "#{Date::MONTHNAMES[@selected_month.to_i]} #{@selected_day}, #{@selected_year}"
+	.pull-left
+		%h2= @daily_record
 
-    .span7#page-buttons
-      .pull-right
-        = link_to 'Edit Record', edit_daily_record_path(@daily_record),
-          :class => 'btn btn-primary'
-        = link_to 'Back to Transactions', daily_records_path, :class => 'btn'
+		%dl.dl-horizontal
+			%dt Budget
+			%dd= number_with_precision(@daily_record.budget, :precision => 2)
+			%dt Total Expense
+			%dd{:id => "js-daily-record-#{@daily_record.id}"}
+				=render :partial => '/daily_records/partials/expenses',
+					:locals => {:daily_record => @daily_record}
+			%dt Notes
+			%dd= @daily_record.notes
+
+	.pull-right
+		=link_to 'Back to Cutoff', @daily_record.cutoff,
+			:class => 'btn btn-default'
+		=link_to 'Edit Record', [:edit, @daily_record],
+			:class => 'btn btn-success'
+		=link_to 'Delete', @daily_record,
+			:class => 'btn btn-danger',
+			:data => {:method => :delete,
+				:confirm => 'Delete this record?'}
+
+	.clearfix
 
 .row
-  = render :partial => 'archive',
-      :locals => { :archive => @archive, :selected_year => @selected_year,
-        :selected_month => @selected_month }
-
-  .span10
-    %dl.dl-horizontal
-      %dt Budget
-      %dd
-        = @daily_record.budget
-      %dt Expenses
-      %dd#record-expenses
-        = render :partial => 'daily_records/total_expenses',
-          :locals => { :daily_record => @daily_record }
-      %dt Notes
-      %dd
-        = @daily_record.notes
-
-    .pull-left
-      %h4 Expenses
-    .pull-right
-      = link_to "Add Line Item", new_daily_record_line_item_path(@daily_record),
-        :data => { :remote => true }, :class => 'btn btn-primary btn-small'
-
-    .clearfix
-
-    %table
-      %thead
-        %tr
-          %th Description
-          %th Amount
-          %th
-      %tbody#line-item-list
-        = render :partial => 'line_items/line_item',
-          :collection => @daily_record.line_items.decorate
+	=render :partial => 'line_items/partials/list',
+		:locals => {:daily_record => @daily_record}
