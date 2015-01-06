@@ -80,6 +80,11 @@ class Cutoff < ActiveRecord::Base
 	end
 
 
+	def refresh
+		self.update_attributes :expenses => self.daily_records.sum(:expenses)
+	end
+
+
 
 private
 
