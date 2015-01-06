@@ -40,6 +40,8 @@ class DailyRecordsController < ApplicationController
 
 	def destroy
 		@daily_record.destroy
+		@daily_record.cutoff.refresh
+
 		redirect_to @daily_record.cutoff
 	end
 

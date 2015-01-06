@@ -47,6 +47,7 @@ class LineItemsController < ApplicationController
 
   def destroy
     @line_item.destroy
+    @line_item.daily_record.refresh
 
     redirect_to @line_item.daily_record
   end

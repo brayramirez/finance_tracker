@@ -24,7 +24,7 @@ class DailyRecord < ActiveRecord::Base
 	validates_presence_of :transaction_date
 	validate :within_cutoff_dates
 
-	
+
 	after_save :refresh_cutoff
 
 
@@ -34,6 +34,11 @@ class DailyRecord < ActiveRecord::Base
 		s += "#{self.transaction_date.year}"
 
 		s
+	end
+
+
+	def refresh
+		self.update_attributes :expenses => self.line_items.sum(:amount)
 	end
 
 
@@ -56,5 +61,5 @@ private
 	def compute_total_expense
 		self.cutoff.daily_records.sum :expenses
 	end
-	
+
 end
