@@ -19,7 +19,6 @@ class DailyRecordsController < ApplicationController
 		if @daily_record.save
 			redirect_to @daily_record
 		else
-			raise @daily_record.errors.inspect
 			render :new
 		end
 	end
