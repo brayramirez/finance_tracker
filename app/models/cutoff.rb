@@ -18,6 +18,12 @@
 
 class Cutoff < ActiveRecord::Base
 
+	module DATE_FORMAT
+		SIDEBAR = '%B %-d'
+		HEADER = '%B %-d %Y'
+	end
+
+
 	belongs_to :user
 
 	has_many :daily_records, :dependent => :destroy
@@ -33,54 +39,47 @@ class Cutoff < ActiveRecord::Base
 	after_validation :extract_year_month
 
 
-	scope :latest, -> { order("date_from DESC") }
+	scope :latest, -> { order('date_from DESC') }
 
 
 	class << self
-		def include date
-			where("date_from <= ?::date AND date_to >= ?::date",
-				date, date).first
+		def current
+			where("Date(?) BETWEEN date_from AND date_to", Date.today).first ||
+				self.last
 		end
 
 
-		# def find_by_year_and_month year, month
-		# 	where(:year_from => year, :month_from => month)
-		# end
-
-
 		def year_list
-			pluck("DISTINCT year_from AS year")
+			pluck('DISTINCT EXTRACT(YEAR FROM date_from)')
 		end
 
 
 		def list_by_year year
-			where("year_from = #{year}")
+			where("EXTRACT(YEAR FROM date_from) = ?", year)
 		end
 	end
 
 
 	def to_s
-		s = "#{Date::MONTHNAMES[self.date_from.month]} #{self.date_from.day} to "
-		s += "#{Date::MONTHNAMES[self.date_to.month]} #{self.date_to.day}"
-
-		s
+		[self.date_from.strftime(DATE_FORMAT::SIDEBAR),
+			self.date_to.strftime(DATE_FORMAT::SIDEBAR)].join ' to '
 	end
 
 
 	def header
-		s = "#{Date::MONTHNAMES[self.date_from.month]} #{self.date_from.day}, #{self.date_from.year} to "
-		s += "#{Date::MONTHNAMES[self.date_to.month]} #{self.date_to.day}, #{self.date_to.year}"
-
-		s
+		[self.date_from.strftime(DATE_FORMAT::HEADER),
+			self.date_to.strftime(DATE_FORMAT::HEADER)].join ' to '
 	end
 
 
-	def within_dates date
-		date >= self.date_from && date <= self.date_to
+	def include? date
+		range = self.date_from..self.date_to
+		range === date
 	end
 
 
 	def refresh
+		# TODO: Move to Form
 		self.update_attributes :expenses => self.daily_records.sum(:expenses)
 	end
 

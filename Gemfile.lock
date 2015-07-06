@@ -47,6 +47,9 @@ GEM
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
       warden (~> 1.2.3)
+    disposable (0.0.9)
+      representable (~> 2.0)
+      uber
     draper (1.2.1)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
@@ -72,8 +75,11 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.25.1)
+    mini_portile (0.6.2)
     minitest (4.7.5)
     multi_json (1.9.3)
+    nokogiri (1.6.6.2)
+      mini_portile (~> 0.6.0)
     orm_adapter (0.5.0)
     pg (0.17.1)
     polyglot (0.3.4)
@@ -102,6 +108,15 @@ GEM
     rdoc (4.1.1)
       json (~> 1.4)
     ref (1.0.5)
+    reform (1.2.6)
+      activemodel
+      disposable (~> 0.0.5)
+      representable (~> 2.1.0)
+      uber (~> 0.0.11)
+    representable (2.1.8)
+      multi_json
+      nokogiri
+      uber (~> 0.0.7)
     request_store (1.0.5)
     sass (3.2.19)
     sass-rails (4.0.3)
@@ -137,6 +152,7 @@ GEM
     turbolinks (2.2.2)
       coffee-rails
     tzinfo (0.3.39)
+    uber (0.0.13)
     uglifier (2.5.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
@@ -149,7 +165,6 @@ PLATFORMS
 DEPENDENCIES
   annotate (~> 2.5.0)
   bootstrap-sass (~> 3.1.1)
-  coffee-rails (~> 4.0.0)
   devise (~> 3.0.3)
   draper (~> 1.2.1)
   faker
@@ -159,6 +174,7 @@ DEPENDENCIES
   pg
   rails (= 4.0.0)
   rails_12factor
+  reform (~> 1.2.6)
   sass-rails (~> 4.0.0)
   sdoc
   therubyracer

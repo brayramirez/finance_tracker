@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
 
 
   def to_s
-    self.name.present? ? self.name : self.email
+    self.name || self.email
   end
 
 

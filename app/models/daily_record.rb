@@ -46,7 +46,7 @@ class DailyRecord < ActiveRecord::Base
 private
 
 	def within_cutoff_dates
-		if self.transaction_date && !self.cutoff.within_dates(self.transaction_date)
+		if self.transaction_date && !self.cutoff.include?(self.transaction_date)
 			errors.add(:transaction_date, 'Date should be within Cutoff Dates')
 		end
 	end
