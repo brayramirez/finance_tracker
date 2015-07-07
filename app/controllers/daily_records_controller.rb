@@ -1,7 +1,7 @@
 class DailyRecordsController < ApplicationController
 
-	before_filter :get_cutoff, :only => [:new, :create]
-	before_filter :get_daily_record, :except => [:new, :create]
+	before_filter :init_cutoff, :only => [:new, :create]
+	before_filter :init_daily_record, :only => [:show, :edit, :update, :destroy]
 
 
 	def show
@@ -48,12 +48,12 @@ class DailyRecordsController < ApplicationController
 
 private
 
-	def get_cutoff
+	def init_cutoff
 		@cutoff = Cutoff.find_by_id params[:cutoff_id]
 	end
 
 
-	def get_daily_record
+	def init_daily_record
 		@daily_record = DailyRecord.find_by_id params[:id]
 	end
 

@@ -6,8 +6,6 @@
 #  notes      :text
 #  date_from  :date
 #  date_to    :date
-#  year_from  :integer
-#  month_from :integer
 #  budget     :decimal(10, 2)   default(0.0)
 #  savings    :decimal(10, 2)   default(0.0)
 #  expenses   :decimal(10, 2)   default(0.0)

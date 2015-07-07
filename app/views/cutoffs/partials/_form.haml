@@ -3,36 +3,36 @@
 -#   cutoff
 -#
 
-=form_for cutoff, :html => {:class => 'form-horizontal'} do |f|
+= form_for cutoff, :html => {:class => 'form-horizontal'} do |f|
 	.form-group
-		=f.label :date_from, :class => 'control-label col-sm-2'
+		= f.label :date_from, :class => 'control-label col-sm-2'
 		.col-sm-2
-			=f.date_field :date_from, :class => 'form-control'
+			= f.date_field :date_from, :class => 'form-control'
 
 	.form-group
-		=f.label :date_to, :class => 'control-label col-sm-2'
+		= f.label :date_to, :class => 'control-label col-sm-2'
 		.col-sm-2
-			=f.date_field :date_to, :class => 'form-control'
+			= f.date_field :date_to, :class => 'form-control'
 
 	.form-group
-		=f.label :budget, :class => 'control-label col-sm-2'
+		= f.label :budget, :class => 'control-label col-sm-2'
 		.col-sm-2
-			=f.text_field :budget, :class => 'form-control text-right'
+			= f.text_field :budget, :class => 'form-control text-right'
 
 	.form-group
-		=f.label :savings, :class => 'control-label col-sm-2'
+		= f.label :savings, :class => 'control-label col-sm-2'
 		.col-sm-2
-			=f.text_field :savings, :class => 'form-control text-right'
+			= f.text_field :savings, :class => 'form-control text-right'
 
 	.form-group
-		=f.label :notes, :class => 'control-label col-sm-2'
+		= f.label :notes, :class => 'control-label col-sm-2'
 		.col-sm-5
-			=f.text_area :notes, :class => 'form-control', :rows => 5
+			= f.text_area :notes, :class => 'form-control', :rows => 5
 
 	%hr
 
 	.form-group
 		.col-sm-offset-2.col-sm-4
-			=f.submit 'Save', :class => 'btn btn-primary'
-			=link_to 'Cancel', root_path, :class => 'btn btn-default'
-			
+			= f.submit 'Save', :class => 'btn btn-primary'
+			= link_to 'Cancel', root_path, :class => 'btn btn-default'
+

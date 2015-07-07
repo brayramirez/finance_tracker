@@ -1,7 +1,7 @@
 class CutoffsController < ApplicationController
 
-	before_filter :all_cutoffs, :except => [:destroy]
-	before_filter :get_cutoff, :except => [:new, :create]
+	before_filter :init_user_cutoffs, :only => [:show]
+	before_filter :init_cutoff, :only => [:show, :edit, :update, :destroy]
 
 
 	def show
@@ -44,15 +44,17 @@ class CutoffsController < ApplicationController
 
 
 
-private
 
-	def get_cutoff
+
+	private
+
+	def init_cutoff
 		@cutoff = current_user.cutoffs.find params[:id]
 	end
 
 
-	def all_cutoffs
-		@cutoffs_list = current_user.cutoffs
+	def init_user_cutoffs
+		@user_cutoffs = current_user.cutoffs
 	end
 
 

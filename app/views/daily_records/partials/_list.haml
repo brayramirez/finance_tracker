@@ -5,7 +5,7 @@
 
 .col-md-10
 	.pull-right
-		=link_to 'New Daily Transaction',
+		= link_to 'New Daily Transaction',
 			[:new, cutoff, :daily_record],
 			:class => 'btn btn-primary'
 
@@ -19,5 +19,5 @@
 				%th Expenses
 				%th
 		%tbody
-			=render :partial => 'daily_records/partials/daily_record',
+			= render :partial => 'daily_records/partials/daily_record',
 				:collection => cutoff.daily_records.latest

@@ -6,8 +6,6 @@
 #  notes      :text
 #  date_from  :date
 #  date_to    :date
-#  year_from  :integer
-#  month_from :integer
 #  budget     :decimal(10, 2)   default(0.0)
 #  savings    :decimal(10, 2)   default(0.0)
 #  expenses   :decimal(10, 2)   default(0.0)
@@ -20,7 +18,7 @@ class Cutoff < ActiveRecord::Base
 
 	module DATE_FORMAT
 		SIDEBAR = '%B %-d'
-		HEADER = '%B %-d %Y'
+		HEADER = '%B %-d, %Y'
 	end
 
 
@@ -33,10 +31,7 @@ class Cutoff < ActiveRecord::Base
 	validates_uniqueness_of :date_to, :scope => :user_id
 
 	validates_presence_of :date_from, :date_to
-	validate :date_to_before_date_from
-
-
-	after_validation :extract_year_month
+	validate :date_range
 
 
 	scope :latest, -> { order('date_from DESC') }
@@ -50,7 +45,7 @@ class Cutoff < ActiveRecord::Base
 
 
 		def year_list
-			pluck('DISTINCT EXTRACT(YEAR FROM date_from)')
+			pluck(:date_from).map(&:year).uniq
 		end
 
 
@@ -78,25 +73,21 @@ class Cutoff < ActiveRecord::Base
 	end
 
 
+	# TODO: Move to Helper/Form
 	def refresh
-		# TODO: Move to Form
 		self.update_attributes :expenses => self.daily_records.sum(:expenses)
 	end
 
 
 
-private
 
-	def date_to_before_date_from
+
+	private
+
+	def date_range
 		if (self.date_from && self.date_to) && (self.date_from >= self.date_to)
-			errors.add(:date_to, 'Date to should be after Date From')
+			errors.add(:date_to, 'invalid date range')
 		end
-	end
-
-
-	def extract_year_month
-		self.year_from = self.date_from.year
-		self.month_from = self.date_from.month
 	end
 
 end

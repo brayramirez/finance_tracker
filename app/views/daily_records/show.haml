@@ -4,20 +4,20 @@
 
 		%dl.dl-horizontal
 			%dt Budget
-			%dd= number_with_precision(@daily_record.budget, :precision => 2)
+			%dd= number_with_precision @daily_record.budget, :precision => 2
 			%dt Total Expense
 			%dd{:id => "js-daily-record-#{@daily_record.id}"}
-				=render :partial => '/daily_records/partials/expenses',
+				= render :partial => '/daily_records/partials/expenses',
 					:locals => {:daily_record => @daily_record}
 			%dt Notes
 			%dd= @daily_record.notes
 
 	.pull-right
-		=link_to 'Back to Cutoff', @daily_record.cutoff,
+		= link_to 'Back to Cutoff', @daily_record.cutoff,
 			:class => 'btn btn-default'
-		=link_to 'Edit Record', [:edit, @daily_record],
+		= link_to 'Edit Record', [:edit, @daily_record],
 			:class => 'btn btn-success'
-		=link_to 'Delete', @daily_record,
+		= link_to 'Delete', @daily_record,
 			:class => 'btn btn-danger',
 			:data => {:method => :delete,
 				:confirm => 'Delete this record?'}
@@ -25,5 +25,5 @@
 	.clearfix
 
 .row
-	=render :partial => 'line_items/partials/list',
+	= render :partial => 'line_items/partials/list',
 		:locals => {:daily_record => @daily_record}

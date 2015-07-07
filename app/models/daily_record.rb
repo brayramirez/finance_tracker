@@ -18,6 +18,7 @@ class DailyRecord < ActiveRecord::Base
 
 	has_many :line_items, :dependent => :destroy
 
+
 	scope :latest, -> { order("transaction_date DESC") }
 
 
@@ -29,36 +30,37 @@ class DailyRecord < ActiveRecord::Base
 
 
 	def to_s
-		s = "#{Date::MONTHNAMES[self.transaction_date.month]} "
-		s += "#{self.transaction_date.day}, "
-		s += "#{self.transaction_date.year}"
-
-		s
+		self.transaction_date.strftime('%B %-d, %Y')
 	end
 
 
+	# TODO: Move to Helper/Form
 	def refresh
 		self.update_attributes :expenses => self.line_items.sum(:amount)
 	end
 
 
 
-private
+
+
+	private
 
 	def within_cutoff_dates
-		if self.transaction_date && !self.cutoff.include?(self.transaction_date)
-			errors.add(:transaction_date, 'Date should be within Cutoff Dates')
+		return if self.transaction_date.blank?
+
+		if !self.cutoff.include?(self.transaction_date)
+			errors.add(:transaction_date, 'must be within Cutoff Dates')
 		end
 	end
 
 
+	# TODO: Move to Helper/Form
 	def refresh_cutoff
-		self.cutoff.update_attributes(
-			:expenses => compute_total_expense)
+		self.cutoff.update_attributes :expenses => total_expenses
 	end
 
 
-	def compute_total_expense
+	def total_expenses
 		self.cutoff.daily_records.sum :expenses
 	end
 
