@@ -3,7 +3,7 @@
     %h2 Users
 
   .pull-right
-    =link_to 'New User',
+    = link_to 'New User',
       [:new, :admin, :user],
       :class => 'btn btn-primary'
 
@@ -18,12 +18,12 @@
           %th Email
           %th
       %tbody
-        -@users.each do |user|
+        - @users.each do |user|
           %tr
             %td= user.name
             %td= user.email
             %td
-              =link_to 'Edit', [:edit, :admin, user]
-              =link_to 'Delete', [:admin, user],
+              = link_to 'Edit', [:edit, :admin, user]
+              = link_to 'Delete', [:admin, user],
                 :data => {:method => :delete,
                   :confirm => 'Delete this record?'}
