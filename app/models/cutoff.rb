@@ -27,13 +27,6 @@ class Cutoff < ActiveRecord::Base
 	has_many :daily_records, :dependent => :destroy
 
 
-	validates_uniqueness_of :date_from, :scope => :user_id
-	validates_uniqueness_of :date_to, :scope => :user_id
-
-	validates_presence_of :date_from, :date_to
-	validate :date_range
-
-
 	scope :latest, -> { order('date_from DESC') }
 
 
@@ -76,18 +69,6 @@ class Cutoff < ActiveRecord::Base
 	# TODO: Move to Helper/Form
 	def refresh
 		self.update_attributes :expenses => self.daily_records.sum(:expenses)
-	end
-
-
-
-
-
-	private
-
-	def date_range
-		if (self.date_from && self.date_to) && (self.date_from >= self.date_to)
-			errors.add(:date_to, 'invalid date range')
-		end
 	end
 
 end

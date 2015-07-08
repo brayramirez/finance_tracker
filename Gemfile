@@ -41,6 +41,8 @@ gem 'pg'
 
 gem 'reform', '~> 1.2.6'
 
+gem 'virtus', '~> 1.0.5'
+
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

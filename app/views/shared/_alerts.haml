@@ -1,15 +1,25 @@
--if notice.present?
+- if notice.present?
   .alert.alert-info.alert-dismissable
-    =link_to 'x', '#', :class => 'close',
+    = link_to 'x', '#', :class => 'close',
     	:data => {:dismiss => 'alert'}
-    =notice
+    = notice
 
--if alert.present?
+
+- if flash[:success].present?
+  .alert.alert-success.alert-dismissable
+    = link_to 'x', '#', :class => 'close',
+      :data => {:dismiss => 'alert'}
+    = flash[:success]
+
+
+- if alert.present? || flash[:error].present?
+  - alert = alert || flash[:error]
+
   .alert.alert-danger.alert-dismissable
-    =link_to 'x', '#', :class => 'close',
+    = link_to 'x', '#', :class => 'close',
     	:data => {:dismiss => 'alert'}
-    -if alert.is_a? String
-      =alert
-    -else
-      -alert.each do |msg|
+    - if alert.is_a? String
+      = alert
+    - else
+      - alert.each do |msg|
         %p= msg

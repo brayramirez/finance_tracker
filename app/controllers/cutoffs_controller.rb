@@ -1,7 +1,9 @@
 class CutoffsController < ApplicationController
 
 	before_filter :init_user_cutoffs, :only => [:show]
+	before_filter :init_new_cutoff, :only => [:new, :create]
 	before_filter :init_cutoff, :only => [:show, :edit, :update, :destroy]
+	before_filter :init_form, :only => [:new, :create, :edit, :update]
 
 
 	def show
@@ -9,16 +11,17 @@ class CutoffsController < ApplicationController
 
 
 	def new
-		@cutoff = Cutoff.new
 	end
 
 
 	def create
-		@cutoff = current_user.cutoffs.new cutoff_params
+		if @form.validate params[:cutoff]
+			@form.save
 
-		if @cutoff.save
-			redirect_to @cutoff
+			flash[:success] = 'Cutoff successfully created.'
+			redirect_to @form.model
 		else
+			flash[:error] = @form.errors.full_messages
 			render :new
 		end
 	end
@@ -29,9 +32,13 @@ class CutoffsController < ApplicationController
 
 
 	def update
-		if @cutoff.update_attributes cutoff_params
-			redirect_to @cutoff
+		if @form.validate params[:cutoff]
+			@form.save
+
+			flash[:success] = 'Cutoff successfully updated.'
+			redirect_to @form.model
 		else
+			flash[:error] = @form.errors.full_messages
 			render :edit
 		end
 	end
@@ -39,6 +46,7 @@ class CutoffsController < ApplicationController
 
 	def destroy
 		@cutoff.destroy
+
 		redirect_to root_path
 	end
 
@@ -48,19 +56,23 @@ class CutoffsController < ApplicationController
 
 	private
 
+	def init_new_cutoff
+		@cutoff = current_user.cutoffs.new
+	end
+
+
 	def init_cutoff
 		@cutoff = current_user.cutoffs.find params[:id]
 	end
 
 
-	def init_user_cutoffs
-		@user_cutoffs = current_user.cutoffs
+	def init_form
+		@form = CutoffForm.new @cutoff
 	end
 
 
-	def cutoff_params
-		params.require(:cutoff).permit :date_from, :date_to,
-			:budget, :savings, :notes
+	def init_user_cutoffs
+		@user_cutoffs = current_user.cutoffs
 	end
 
 end
