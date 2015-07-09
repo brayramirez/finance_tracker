@@ -2,6 +2,8 @@ class DailyRecordsController < ApplicationController
 
 	before_filter :init_cutoff, :only => [:new, :create]
 	before_filter :init_daily_record, :only => [:show, :edit, :update, :destroy]
+	before_filter :init_new_daily_record, :only => [:new, :create]
+	before_filter :init_form, :only => [:new, :create, :edit, :update]
 
 
 	def show
@@ -9,16 +11,17 @@ class DailyRecordsController < ApplicationController
 
 
 	def new
-		@daily_record = DailyRecord.new
 	end
 
 
 	def create
-		@daily_record = @cutoff.daily_records.new daily_record_params
+		if @form.validate params[:daily_record]
+			@form.save
 
-		if @daily_record.save
+			flash[:success] = 'Record successfully created.'
 			redirect_to @daily_record
 		else
+			flash[:error] = @form.errors.full_messages
 			render :new
 		end
 	end
@@ -29,17 +32,20 @@ class DailyRecordsController < ApplicationController
 
 
 	def update
-		if @daily_record.update_attributes daily_record_params
+		if @form.validate params[:daily_record]
+			@form.save
+
+			flash[:success] = 'Record successfully updated.'
 			redirect_to @daily_record
 		else
+			flash[:error] = @form.errors.full_messages
 			render :edit
 		end
 	end
 
 
 	def destroy
-		@daily_record.destroy
-		@daily_record.cutoff.refresh
+		DailyRecordDeleter.new(@daily_record).delete
 
 		redirect_to @daily_record.cutoff
 	end
@@ -57,9 +63,14 @@ private
 		@daily_record = DailyRecord.find_by_id params[:id]
 	end
 
-	def daily_record_params
-		params.require(:daily_record).permit :transaction_date,
-			:budget, :notes
+
+	def init_new_daily_record
+		@daily_record = @cutoff.daily_records.new
+	end
+
+
+	def init_form
+		@form = DailyRecordForm.new @daily_record
 	end
 
 end

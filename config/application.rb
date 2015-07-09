@@ -21,6 +21,7 @@ module FinanceTracker
     # config.i18n.default_locale = :de
     config.autoload_paths += Dir[Rails.root.join('app', 'models', '**/')]
     config.autoload_paths += Dir[Rails.root.join('app', 'forms', '**/')]
+    config.autoload_paths += Dir[Rails.root.join('app', 'supports', '**/')]
 
     Reform::Form.reform_2_0!
   end

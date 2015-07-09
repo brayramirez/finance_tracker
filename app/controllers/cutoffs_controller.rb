@@ -1,8 +1,8 @@
 class CutoffsController < ApplicationController
 
 	before_filter :init_user_cutoffs, :only => [:show]
-	before_filter :init_new_cutoff, :only => [:new, :create]
 	before_filter :init_cutoff, :only => [:show, :edit, :update, :destroy]
+	before_filter :init_new_cutoff, :only => [:new, :create]
 	before_filter :init_form, :only => [:new, :create, :edit, :update]
 
 

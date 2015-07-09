@@ -62,7 +62,7 @@ class Cutoff < ActiveRecord::Base
 
 	def include? date
 		range = self.date_from..self.date_to
-		range === date
+		range === date.to_date
 	end
 
 

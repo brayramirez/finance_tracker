@@ -13,13 +13,13 @@
 
 
 - if alert.present? || flash[:error].present?
-  - alert = alert || flash[:error]
+  - message = alert || flash[:error]
 
   .alert.alert-danger.alert-dismissable
     = link_to 'x', '#', :class => 'close',
     	:data => {:dismiss => 'alert'}
-    - if alert.is_a? String
-      = alert
+    - if message.is_a? String
+      = message
     - else
-      - alert.each do |msg|
+      - message.each do |msg|
         %p= msg

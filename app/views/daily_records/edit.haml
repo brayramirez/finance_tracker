@@ -1,8 +1,6 @@
 .page-header
 	%h2 Edit #{@daily_record}
 
-= form_for [@daily_record],
-	:html => {:class => 'form-horizontal'} do |f|
-
+= form_for @form, :html => {:class => 'form-horizontal'} do |f|
 	= render :partial => 'daily_records/partials/form',
 		:locals => {:f => f}

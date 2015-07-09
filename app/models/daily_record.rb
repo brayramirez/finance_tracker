@@ -22,46 +22,8 @@ class DailyRecord < ActiveRecord::Base
 	scope :latest, -> { order("transaction_date DESC") }
 
 
-	validates_presence_of :transaction_date
-	validate :within_cutoff_dates
-
-
-	after_save :refresh_cutoff
-
-
 	def to_s
 		self.transaction_date.strftime('%B %-d, %Y')
-	end
-
-
-	# TODO: Move to Helper/Form
-	def refresh
-		self.update_attributes :expenses => self.line_items.sum(:amount)
-	end
-
-
-
-
-
-	private
-
-	def within_cutoff_dates
-		return if self.transaction_date.blank?
-
-		if !self.cutoff.include?(self.transaction_date)
-			errors.add(:transaction_date, 'must be within Cutoff Dates')
-		end
-	end
-
-
-	# TODO: Move to Helper/Form
-	def refresh_cutoff
-		self.cutoff.update_attributes :expenses => total_expenses
-	end
-
-
-	def total_expenses
-		self.cutoff.daily_records.sum :expenses
 	end
 
 end
