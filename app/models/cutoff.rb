@@ -16,59 +16,59 @@
 
 class Cutoff < ActiveRecord::Base
 
-	module DATE_FORMAT
-		SIDEBAR = '%B %-d'
-		HEADER = '%B %-d, %Y'
-	end
+  module DATE_FORMAT
+    SIDEBAR = '%B %-d'
+    HEADER = '%B %-d, %Y'
+  end
 
 
-	belongs_to :user
+  belongs_to :user
 
-	has_many :daily_records, :dependent => :destroy
-
-
-	scope :latest, -> { order('date_from DESC') }
+  has_many :daily_records, :dependent => :destroy
 
 
-	class << self
-		def current
-			where("Date(?) BETWEEN date_from AND date_to", Date.today).first ||
-				self.last
-		end
+  scope :latest, -> { order('date_from DESC') }
 
 
-		def year_list
-			pluck(:date_from).map(&:year).uniq
-		end
+  class << self
+    def current
+      where("Date(?) BETWEEN date_from AND date_to", Date.today).first ||
+        self.last
+    end
 
 
-		def list_by_year year
-			where("EXTRACT(YEAR FROM date_from) = ?", year)
-		end
-	end
+    def year_list
+      pluck(:date_from).map(&:year).uniq
+    end
 
 
-	def to_s
-		[self.date_from.strftime(DATE_FORMAT::SIDEBAR),
-			self.date_to.strftime(DATE_FORMAT::SIDEBAR)].join ' to '
-	end
+    def list_by_year year
+      where("EXTRACT(YEAR FROM date_from) = ?", year)
+    end
+  end
 
 
-	def header
-		[self.date_from.strftime(DATE_FORMAT::HEADER),
-			self.date_to.strftime(DATE_FORMAT::HEADER)].join ' to '
-	end
+  def to_s
+    [self.date_from.strftime(DATE_FORMAT::SIDEBAR),
+      self.date_to.strftime(DATE_FORMAT::SIDEBAR)].join ' to '
+  end
 
 
-	def include? date
-		range = self.date_from..self.date_to
-		range === date.to_date
-	end
+  def header
+    [self.date_from.strftime(DATE_FORMAT::HEADER),
+      self.date_to.strftime(DATE_FORMAT::HEADER)].join ' to '
+  end
 
 
-	# TODO: Move to Helper/Form
-	def refresh
-		self.update_attributes :expenses => self.daily_records.sum(:expenses)
-	end
+  def include? date
+    range = self.date_from..self.date_to
+    range === date.to_date
+  end
+
+
+  # TODO: Move to Helper/Form
+  def refresh
+    self.update_attributes :expenses => self.daily_records.sum(:expenses)
+  end
 
 end

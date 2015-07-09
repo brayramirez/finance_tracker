@@ -1,7 +1,7 @@
 - if notice.present?
   .alert.alert-info.alert-dismissable
     = link_to 'x', '#', :class => 'close',
-    	:data => {:dismiss => 'alert'}
+      :data => {:dismiss => 'alert'}
     = notice
 
 
@@ -17,7 +17,7 @@
 
   .alert.alert-danger.alert-dismissable
     = link_to 'x', '#', :class => 'close',
-    	:data => {:dismiss => 'alert'}
+      :data => {:dismiss => 'alert'}
     - if message.is_a? String
       = message
     - else

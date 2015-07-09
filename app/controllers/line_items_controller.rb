@@ -55,7 +55,9 @@ class LineItemsController < ApplicationController
 
 
 
-private
+
+
+  private
 
   def init_daily_record
     @daily_record = DailyRecord.find params[:daily_record_id]

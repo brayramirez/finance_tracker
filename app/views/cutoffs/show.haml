@@ -1,30 +1,30 @@
 .page-header
-	.pull-left
-		%h2= @cutoff.header
+  .pull-left
+    %h2= @cutoff.header
 
-		%dl.dl-horizontal
-			%dt Total Budget
-			%dd= number_with_precision(@cutoff.budget, :precision => 2)
-			%dt Total Expense
-			%dd= number_with_precision(@cutoff.expenses, :precision => 2)
-			%dt Total Savings
-			%dd= number_with_precision(@cutoff.savings, :precision => 2)
-			%dt Notes
-			%dd= @cutoff.notes
+    %dl.dl-horizontal
+      %dt Total Budget
+      %dd= number_with_precision(@cutoff.budget, :precision => 2)
+      %dt Total Expense
+      %dd= number_with_precision(@cutoff.expenses, :precision => 2)
+      %dt Total Savings
+      %dd= number_with_precision(@cutoff.savings, :precision => 2)
+      %dt Notes
+      %dd= @cutoff.notes
 
-	.pull-right
-		= link_to 'Edit Cutoff', [:edit, @cutoff], :class => 'btn btn-success'
-		= link_to 'Delete', @cutoff,
-			:class => 'btn btn-danger',
-			:data => {:method => :delete,
-				:confirm => 'Delete this record?'}
-		= link_to 'New Cutoff', new_cutoff_path, :class => 'btn btn-primary'
+  .pull-right
+    = link_to 'Edit Cutoff', [:edit, @cutoff], :class => 'btn btn-success'
+    = link_to 'Delete', @cutoff,
+      :class => 'btn btn-danger',
+      :data => {:method => :delete,
+        :confirm => 'Delete this record?'}
+    = link_to 'New Cutoff', new_cutoff_path, :class => 'btn btn-primary'
 
-	.clearfix
+  .clearfix
 
 .row
-	= render :partial => 'cutoffs/partials/archive',
-		:locals => {:cutoffs => @user_cutoffs, :selected_cutoff => @cutoff}
+  = render :partial => 'cutoffs/partials/archive',
+    :locals => {:cutoffs => @user_cutoffs, :selected_cutoff => @cutoff}
 
-	= render :partial => 'daily_records/partials/list',
-		:locals => {:cutoff => @cutoff}
+  = render :partial => 'daily_records/partials/list',
+    :locals => {:cutoff => @cutoff}

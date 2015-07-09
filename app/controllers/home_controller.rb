@@ -1,9 +1,9 @@
 class HomeController < ApplicationController
 
-	def show
+  def show
     path = current_user.cutoffs.current || [:new, :cutoff]
 
-		redirect_to path
-	end
+    redirect_to path
+  end
 
 end

@@ -14,16 +14,16 @@
 
 class DailyRecord < ActiveRecord::Base
 
-	belongs_to :cutoff
+  belongs_to :cutoff
 
-	has_many :line_items, :dependent => :destroy
-
-
-	scope :latest, -> { order("transaction_date DESC") }
+  has_many :line_items, :dependent => :destroy
 
 
-	def to_s
-		self.transaction_date.strftime('%B %-d, %Y')
-	end
+  scope :latest, -> { order("transaction_date DESC") }
+
+
+  def to_s
+    self.transaction_date.strftime('%B %-d, %Y')
+  end
 
 end

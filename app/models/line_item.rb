@@ -13,7 +13,7 @@
 
 class LineItem < ActiveRecord::Base
 
-	belongs_to :daily_record
-	belongs_to :category
+  belongs_to :daily_record
+  belongs_to :category
 
 end

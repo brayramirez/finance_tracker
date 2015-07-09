@@ -24,7 +24,9 @@ class UsersController < ApplicationController
 
 
 
-private
+
+
+  private
 
   def get_user
     @user = current_user
