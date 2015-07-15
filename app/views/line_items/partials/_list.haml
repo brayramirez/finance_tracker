@@ -4,20 +4,20 @@
 -#
 
 .col-md-12
-	.pull-right
-		=link_to 'New Line Item',
-			[:new, daily_record, :line_item],
-			:class => 'btn btn-primary',
-			:remote => true
+  .pull-right
+    = link_to 'New Line Item',
+      [:new, daily_record, :line_item],
+      :class => 'btn btn-primary',
+      :remote => true
 
-	.clearfix
+  .clearfix
 
-	%table.table.table-striped.table-hover.table-condensed
-		%thead
-			%tr
-				%th Description
-				%th Amount
-				%th
-		%tbody#js-line-item-list
-			=render :partial => 'line_items/partials/line_item',
-				:collection => daily_record.line_items
+  %table.table.table-striped.table-hover.table-condensed
+    %thead
+      %tr
+        %th Description
+        %th Amount
+        %th
+    %tbody#js-line-item-list
+      = render :partial => 'line_items/partials/line_item',
+        :collection => daily_record.line_items

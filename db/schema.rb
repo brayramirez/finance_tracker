@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140601064809) do
+ActiveRecord::Schema.define(version: 20150707150248) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,8 +29,6 @@ ActiveRecord::Schema.define(version: 20140601064809) do
     t.text     "notes"
     t.date     "date_from"
     t.date     "date_to"
-    t.integer  "year_from"
-    t.integer  "month_from"
     t.decimal  "budget",     precision: 10, scale: 2, default: 0.0
     t.decimal  "savings",    precision: 10, scale: 2, default: 0.0
     t.decimal  "expenses",   precision: 10, scale: 2, default: 0.0

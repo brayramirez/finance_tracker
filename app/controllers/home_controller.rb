@@ -1,14 +1,9 @@
 class HomeController < ApplicationController
 
-	def show
-		cutoff = current_user.cutoffs.include(Date.today) ||
-							current_user.cutoffs.last
+  def show
+    path = current_user.cutoffs.current || [:new, :cutoff]
 
-		if cutoff
-			redirect_to cutoff
-		else
-			redirect_to [:new, :cutoff]
-		end
-	end
+    redirect_to path
+  end
 
 end

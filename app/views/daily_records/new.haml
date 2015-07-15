@@ -1,28 +1,7 @@
 .page-header
-	%h2 New Daily Record
+  %h2 New Daily Record
 
-=form_for [@cutoff, @daily_record],
-	:html => {:class => 'form-horizontal'} do |f|
+= form_for @form, :url => [@cutoff, @daily_record],
+  :html => {:class => 'form-horizontal'} do |f|
 
-	.form-group
-		=f.label :transaction_date, :class => 'control-label col-sm-2'
-		.col-sm-2
-			=f.date_field :transaction_date, :class => 'form-control'
-
-	.form-group
-		=f.label :budget, :class => 'control-label col-sm-2'
-		.col-sm-2
-			=f.text_field :budget, :class => 'form-control text-right'
-
-	.form-group
-		=f.label :notes, :class => 'control-label col-sm-2'
-		.col-sm-5
-			=f.text_area :notes, :class => 'form-control', :rows => 5
-
-
-	%hr
-
-	.form-group
-		.col-sm-offset-2.col-sm-4
-			=f.submit 'Save', :class => 'btn btn-primary'
-			=link_to 'Cancel', root_path, :class => 'btn btn-default'
+  = render :partial => 'daily_records/partials/form', :locals => {:f => f}

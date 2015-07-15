@@ -19,5 +19,10 @@ module FinanceTracker
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+    config.autoload_paths += Dir[Rails.root.join('app', 'models', '**/')]
+    config.autoload_paths += Dir[Rails.root.join('app', 'forms', '**/')]
+    config.autoload_paths += Dir[Rails.root.join('app', 'supports', '**/')]
+
+    Reform::Form.reform_2_0!
   end
 end

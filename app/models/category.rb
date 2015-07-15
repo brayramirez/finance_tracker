@@ -18,7 +18,7 @@ class Category < ActiveRecord::Base
 
 
   def to_s
-  	self.label
+    self.label
   end
 
 end

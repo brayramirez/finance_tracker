@@ -13,24 +13,7 @@
 
 class LineItem < ActiveRecord::Base
 
-	belongs_to :daily_record
-	belongs_to :category
-
-
-	after_save :refresh_daily_record
-	
-
-
-private
-
-	def refresh_daily_record
-		self.daily_record.update_attributes(
-			:expenses => compute_total_expense)
-	end
-
-
-	def compute_total_expense
-		self.daily_record.line_items.sum :amount
-	end
+  belongs_to :daily_record
+  belongs_to :category
 
 end

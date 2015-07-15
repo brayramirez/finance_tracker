@@ -3,8 +3,7 @@
 -#   line_item
 -#
 
-=form_for [line_item], :remote => true,
+= form_for form, :remote => true,
   :html => { :class => 'form-horizontal' } do |f|
 
-  =render :partial => '/line_items/partials/form',
-    :locals => {:f => f}
+  = render :partial => '/line_items/partials/form', :locals => {:f => f}

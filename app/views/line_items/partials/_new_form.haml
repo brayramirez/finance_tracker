@@ -4,8 +4,8 @@
 -#   line_item
 -#
 
-=form_for [daily_record, line_item], :remote => true,
+= form_for form, :url => [daily_record, line_item], :remote => true,
   :html => { :class => 'form-horizontal' } do |f|
 
-  =render :partial => '/line_items/partials/form',
+  = render :partial => '/line_items/partials/form',
     :locals => {:f => f}

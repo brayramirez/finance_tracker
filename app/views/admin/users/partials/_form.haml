@@ -3,34 +3,34 @@
 -#   user
 -#
 
-=form_for [:admin, user],
+= form_for [:admin, user],
   :html => {:class => 'form-horizontal'} do |f|
 
   .form-group
-    =f.label :name, :class => 'control-label col-sm-2'
+    = f.label :name, :class => 'control-label col-sm-2'
     .col-sm-3
-      =f.text_field :name, :class => 'form-control'
+      = f.text_field :name, :class => 'form-control'
 
   .form-group
-    =f.label :email, :class => 'control-label col-sm-2'
+    = f.label :email, :class => 'control-label col-sm-2'
     .col-sm-3
-      =f.email_field :email, :class => 'form-control'
+      = f.email_field :email, :class => 'form-control'
 
   .form-group
-    =f.label :password, :class => 'control-label col-sm-2'
+    = f.label :password, :class => 'control-label col-sm-2'
     .col-sm-3
-      =f.password_field :password, :class => 'form-control'
+      = f.password_field :password, :class => 'form-control'
 
   .form-group
-    =f.label :password_confirmation, 'Re-type Password',
+    = f.label :password_confirmation, 'Re-type Password',
       :class => 'control-label col-sm-2'
     .col-sm-3
-      =f.password_field :password_confirmation,
+      = f.password_field :password_confirmation,
         :class => 'form-control'
 
   %hr
 
   .form-group
     .col-sm-offset-2.cols-m-4
-      =f.submit 'Save', :class => 'btn btn-primary'
-      =link_to 'Cancel', [:admin, :users], :class => 'btn btn-default'
+      = f.submit 'Save', :class => 'btn btn-primary'
+      = link_to 'Cancel', [:admin, :users], :class => 'btn btn-default'
