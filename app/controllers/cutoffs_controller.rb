@@ -1,17 +1,9 @@
-class CutoffsController < ApplicationController
+class CutoffsController < BaseController
 
   before_filter :init_user_cutoffs, :only => [:show]
   before_filter :init_cutoff, :only => [:show, :edit, :update, :destroy]
   before_filter :init_new_cutoff, :only => [:new, :create]
   before_filter :init_form, :only => [:new, :create, :edit, :update]
-
-
-  def show
-  end
-
-
-  def new
-  end
 
 
   def create
@@ -24,10 +16,6 @@ class CutoffsController < ApplicationController
       flash[:error] = @form.errors.full_messages
       render :new
     end
-  end
-
-
-  def edit
   end
 
 

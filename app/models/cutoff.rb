@@ -17,7 +17,7 @@
 class Cutoff < ActiveRecord::Base
 
   module DATE_FORMAT
-    SIDEBAR = '%B %-d'
+    SIDEBAR = '%b %-d'
     HEADER = '%B %-d, %Y'
   end
 

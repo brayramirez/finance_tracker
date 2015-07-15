@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_filter :get_user
+  before_filter :init_user
 
 
   def edit
@@ -28,7 +28,7 @@ class UsersController < ApplicationController
 
   private
 
-  def get_user
+  def init_user
     @user = current_user
   end
 

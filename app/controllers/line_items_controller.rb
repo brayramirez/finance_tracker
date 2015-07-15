@@ -1,4 +1,4 @@
-class LineItemsController < ApplicationController
+class LineItemsController < BaseController
 
   layout false
 
@@ -7,14 +7,6 @@ class LineItemsController < ApplicationController
   before_filter :init_line_item, :only => [:show, :edit, :update, :destroy]
   before_filter :init_new_line_item, :only => [:new, :create]
   before_filter :init_form, :only => [:new, :create, :edit, :update]
-
-
-  def show
-  end
-
-
-  def new
-  end
 
 
   def create
@@ -27,10 +19,6 @@ class LineItemsController < ApplicationController
     else
       render 'new'
     end
-  end
-
-
-  def edit
   end
 
 

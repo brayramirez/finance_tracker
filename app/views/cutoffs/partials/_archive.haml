@@ -6,7 +6,7 @@
 
 .col-md-2
   .panel-group#accordion
-    - cutoffs.year_list.each do |year|
+    - Cutoff.latest.year_list.each do |year|
       - id = "year-#{year}"
       .panel.panel-default
         .panel-heading
