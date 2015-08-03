@@ -1,29 +1,33 @@
-.page-header
-  .pull-left
-    %h2 Users
+.mdl-grid
+  .mdl-cell.mdl-cell--2-col
+  .mdl-cell.mdl-cell--8-col
+    .mdl-grid.mdl-grid--no-spacing
+      .mdl-card.mdl-shadow--2dp.mdl-cell.mdl-cell--12-col.mini-card
+        .mdl-card__title
+          .mdl-card__title-text
+            .mdl-typography--display-1 Users
+        .mdl-card__actions.mdl-card--border
+          = link_to icon('add'), [:new, :admin, :user],
+            :class => 'mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--primary'
 
-  .pull-right
-    = link_to 'New User',
-      [:new, :admin, :user],
-      :class => 'btn btn-primary'
-
-  .clearfix
-
-.row
-  .col-md-12
-    %table.table.table-striped.table-hover.table-condensed
-      %thead
-        %tr
-          %th Name
-          %th Email
-          %th
-      %tbody
-        - @users.each do |user|
+.mdl-grid
+  .mdl-cell.mdl-cell--2-col
+  .mdl-cell.mdl-cell--8-col
+    .mdl-grid.mdl-grid--no-spacing
+      %table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp.mdl-cell.mdl-cell--12-col
+        %thead
           %tr
-            %td= user.name
-            %td= user.email
-            %td
-              = link_to 'Edit', [:edit, :admin, user]
-              = link_to 'Delete', [:admin, user],
-                :data => {:method => :delete,
-                  :confirm => 'Delete this record?'}
+            %th.mdl-data-table__cell--non-numeric Name
+            %th.mdl-data-table__cell--non-numeric Email
+            %th.mdl-data-table__cell--non-numeric
+        %tbody
+          - @users.each do |user|
+            %tr
+              %td.mdl-data-table__cell--non-numeric= user.name
+              %td.mdl-data-table__cell--non-numeric= user.email
+              %td.mdl-data-table__cell--non-numeric
+                = link_to icon('edit', :class => 'md-18'),
+                  [:edit, :admin, user]
+                &nbsp;&nbsp;
+                = link_to icon('delete', :class => 'md-18'), [:admin, user],
+                  :data => {:method => :delete, :confirm => 'Delete this record?'}

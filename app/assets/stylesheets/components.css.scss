@@ -1,0 +1,25 @@
+.display-flex {
+  display: flex;
+}
+
+.alignment-center {
+  align-items: center;
+}
+
+a.undecorated-link {
+  text-decoration: none;
+}
+
+.mini-card {
+  min-height: 100px;
+}
+
+.archive-header {
+  .mdl-navigation {
+    .mdl-navigation__link {
+      &:hover {
+        background-color: #00838f;
+      }
+    }
+  }
+}

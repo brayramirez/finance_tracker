@@ -1,29 +1,41 @@
-.page-header
-  .pull-left
-    %h2= @daily_record
+.mdl-grid
+  .mdl-cell.mdl-cell--2-col
+  .mdl-cell.mdl-cell--8-col
+    .mdl-grid.mdl-grid--no-spacing
+      .mdl-card.mdl-shadow--2dp.mdl-cell.mdl-cell--12-col
+        .mdl-card__title
+          .mdl-card__title-text
+            .mdl-typography--display-1= @daily_record
+        .mdl-card__supporting-text
+          .mdl-typography--body-1
+            = @daily_record.notes
+        .mdl-card__actions.mdl-card--border
+          .display-flex
+            = icon_cancel_button @daily_record.cutoff
+            &nbsp;&nbsp;
+            = link_to icon('edit'), [:edit, @daily_record],
+              :class => 'mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--primary'
+            &nbsp;&nbsp;
+            = link_to icon('delete'), @daily_record,
+              :class => 'mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--accent',
+              :data => {:method => :delete, :confirm => 'Delete this record?'}
+            .mdl-layout-spacer
+            = link_to '+ New Line Item',
+              [:new, @daily_record, :line_item],
+              :class => 'mdl-button mdl-js-button mdl-button--raised mdl-button--primary'
 
-    %dl.dl-horizontal
-      %dt Budget
-      %dd= number_with_precision @daily_record.budget, :precision => 2
-      %dt Total Expense
-      %dd{:id => "js-daily-record-#{@daily_record.id}"}
-        = render :partial => '/daily_records/partials/expenses',
-          :locals => {:daily_record => @daily_record}
-      %dt Notes
-      %dd= @daily_record.notes
+.mdl-grid
+  .mdl-cell.mdl-cell--2-col
+  .mdl-cell.mdl-cell--8-col
+    .mdl-grid.mdl-grid--no-spacing
+      %table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp.mdl-cell.mdl-cell--12-col
+        %tbody
+          %tr
+            %td.mdl-data-table__cell--non-numeric Budget
+            %td= number_with_precision @daily_record.budget, :precision => 2
+          %tr
+            %td.mdl-data-table__cell--non-numeric Total Expense
+            %td= number_with_precision @daily_record.expenses, :precision => 2
 
-  .pull-right
-    = link_to 'Back to Cutoff', @daily_record.cutoff,
-      :class => 'btn btn-default'
-    = link_to 'Edit Record', [:edit, @daily_record],
-      :class => 'btn btn-success'
-    = link_to 'Delete', @daily_record,
-      :class => 'btn btn-danger',
-      :data => {:method => :delete,
-        :confirm => 'Delete this record?'}
-
-  .clearfix
-
-.row
-  = render :partial => 'line_items/partials/list',
-    :locals => {:daily_record => @daily_record}
+= render :partial => 'line_items/partials/list',
+  :locals => {:line_items => @daily_record.line_items}

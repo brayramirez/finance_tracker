@@ -4,19 +4,33 @@
 -#   selected_month
 -#
 
-.col-md-2
-  .panel-group#accordion
-    - Cutoff.latest.year_list.each do |year|
-      - id = "year-#{year}"
-      .panel.panel-default
-        .panel-heading
-          .panel-title
-            = link_to year.to_i, "##{id}",
-              :data => {:toggle => 'collapse', :parent => '#accordion'}
-        .panel-collapse.collapse{:id => id,
-          :class => "#{'in' if year == selected_cutoff.date_from.year}"}
-          .panel-body
-            %ul.list-unstyled
-              - cutoffs.list_by_year(year).latest.each do |cutoff|
-                %li= link_to cutoff, cutoff,
-                  :class => "#{'text-success' if cutoff == selected_cutoff}"
+- if user_signed_in?
+  - cutoffs = current_user.cutoffs
+  .mdl-layout__drawer
+    .archive-header.mdl-color--cyan-900
+      .mdl-navigation
+        = link_to icon('home', :class => 'md-36'),
+          [:root],
+          :class => 'mdl-navigation__link mdl-color-text--white'
+        .mdl-navigation__link
+          .display-flex.alignment-center
+            %span.mdl-color-text--white New Cutoff
+            .mdl-layout-spacer
+            = link_to icon('add'),
+              [:new, :cutoff],
+              :class => 'mdl-button mdl-js-button mdl-button--icon mdl-color-text--white'
+    .mdl-navigation.mdl-color-text--white
+      - cutoffs.latest.year_list.each do |year|
+        - id = "year-#{year}"
+        .mdl-navigation__link
+          .display-flex.alignment-center
+            %span= year
+            .mdl-layout-spacer
+            = button_tag icon('arrow_drop_down'),
+              :class => 'mdl-button mdl-js-button mdl-button--icon',
+              :id => "#{id}"
+        %ul.mdl-menu.mdl-menu--bottom-right.mdl-js-menu.mdl-js-ripple-effect{:for => id}
+          - cutoffs.list_by_year(year).latest.each do |cutoff|
+            %li.mdl-menu__item
+              = link_to cutoff, cutoff,
+                :class => 'undecorated-link'

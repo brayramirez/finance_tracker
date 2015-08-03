@@ -1,23 +1,17 @@
 - if notice.present?
-  .alert.alert-info.alert-dismissable
-    = link_to 'x', '#', :class => 'close',
-      :data => {:dismiss => 'alert'}
+  .mdl-grid.mdl-color--light-blue-600.mdl-color-text--white
     = notice
 
 
 - if flash[:success].present?
-  .alert.alert-success.alert-dismissable
-    = link_to 'x', '#', :class => 'close',
-      :data => {:dismiss => 'alert'}
+  .mdl-grid.mdl-color--green-600.mdl-color-text--white
     = flash[:success]
 
 
 - if alert.present? || flash[:error].present?
   - message = alert || flash[:error]
 
-  .alert.alert-danger.alert-dismissable
-    = link_to 'x', '#', :class => 'close',
-      :data => {:dismiss => 'alert'}
+  .mdl-grid.mdl-color--red.mdl-color-text--white
     - if message.is_a? String
       = message
     - else

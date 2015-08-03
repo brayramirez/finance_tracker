@@ -12,7 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
-//= require bootstrap
+//= require plugin/material.min.js
 //= reqex-mask-plugin.js
 //= require_tree .

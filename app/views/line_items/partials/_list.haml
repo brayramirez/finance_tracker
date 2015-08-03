@@ -1,23 +1,18 @@
 -#
 -# locals:
--#   daily_record
+-#   line_items
 -#
 
-.col-md-12
-  .pull-right
-    = link_to 'New Line Item',
-      [:new, daily_record, :line_item],
-      :class => 'btn btn-primary',
-      :remote => true
-
-  .clearfix
-
-  %table.table.table-striped.table-hover.table-condensed
-    %thead
-      %tr
-        %th Description
-        %th Amount
-        %th
-    %tbody#js-line-item-list
-      = render :partial => 'line_items/partials/line_item',
-        :collection => daily_record.line_items
+.mdl-grid
+  .mdl-cell.mdl-cell--2-col
+  .mdl-cell.mdl-cell--8-col
+    .mdl-grid.mdl-grid--no-spacing
+      %table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp.mdl-cell.mdl-cell--12-col
+        %thead
+          %tr
+            %th.mdl-data-table__cell--non-numeric Description
+            %th Amount
+            %th.mdl-data-table__cell--non-numeric
+        %tbody
+          = render :partial => 'line_items/partials/line_item',
+            :collection => line_items

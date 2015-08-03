@@ -4,10 +4,10 @@
 -#
 
 %tr{:id => "line-item-#{line_item.id}"}
-  %td= line_item.description
+  %td.mdl-data-table__cell--non-numeric= line_item.description
   %td= number_with_precision(line_item.amount, :precision => 2)
-  %td
-    = link_to 'Edit', [:edit, line_item], :remote => true
-    = link_to 'Delete', line_item,
-      :data => {:method => :delete,
-        :confirm => 'Delete this record?'}
+  %td.mdl-data-table__cell--non-numeric
+    = link_to icon('edit', :class => 'md-18'), [:edit, line_item]
+    &nbsp;&nbsp;
+    = link_to icon('delete', :class => 'md-18'), line_item,
+      :data => {:method => :delete, :confirm => 'Delete this record?'}

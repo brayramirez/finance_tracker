@@ -1,24 +1,27 @@
 class LineItemsController < BaseController
 
-  layout false
-
-
   before_filter :init_daily_record, :only => [:new, :create]
   before_filter :init_line_item, :only => [:show, :edit, :update, :destroy]
   before_filter :init_new_line_item, :only => [:new, :create]
   before_filter :init_form, :only => [:new, :create, :edit, :update]
 
 
+  def new
+  end
+
+
   def create
     if @form.validate params[:line_item]
       @form.save
 
-      respond_to do |format|
-        format.js
-      end
+      redirect_to [@line_item.daily_record]
     else
       render 'new'
     end
+  end
+
+
+  def edit
   end
 
 
@@ -26,9 +29,7 @@ class LineItemsController < BaseController
     if @form.validate params[:line_item]
       @form.save
 
-      respond_to do |format|
-        format.js
-      end
+      redirect_to [@line_item.daily_record]
     else
       render 'edit'
     end
