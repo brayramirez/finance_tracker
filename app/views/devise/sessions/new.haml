@@ -1,34 +1,29 @@
-.row
-  .col-sm-10.col-sm-offset-2
-    %h2
-      Sign In
+.mdl-grid
+  .mdl-cell.mdl-cell--4-col
+  .mdl-cell.mdl-cell--4-col
+    .mdl-grid.mdl-grid--no-spacing
+      .mdl-card.mdl-shadow--2dp.mdl-cell.mdl-cell--12-col
+        .mdl-card__title
+          .mdl-card__title-text
+            .mdl-typography--display-1 Sign In
 
-%hr
+        = form_for resource, :as => resource_name,
+            :url => session_path(resource_name) do |f|
 
-=form_for resource, :as => resource_name,
-  :url => session_path(resource_name),
-  :html => {:class => 'form-horizontal'} do |f|
+          .mdl-card__supporting-text
+            .mdl-textfield.mdl-js-textfield.mdl-textfield--full-width
+              = f.email_field :email, :autofocus => true,
+                :class => 'mdl-textfield__input'
+              = f.label :email, 'Email',
+                :class => 'mdl-textfield__label'
+              %span.mdl-textfield__error Invalid Email
 
-  .form-group
-    =f.label :email, :class => 'control-label col-sm-2'
-    .col-sm-3
-      =f.email_field :email, :autofocus => true,
-        :class => 'form-control'
+            .mdl-textfield.mdl-js-textfield.mdl-textfield--full-width
+              = f.password_field :password,
+                :class => 'mdl-textfield__input'
+              = f.label :password, 'Password',
+                :class => 'mdl-textfield__label'
 
-  .form-group
-    =f.label :password, :class => 'control-label col-sm-2'
-    .col-sm-3
-      =f.password_field :password, :class => 'form-control'
-
-  .form-group
-    .col-sm-offset-2.col-sm-3
-      -if devise_mapping.rememberable?
-        %label.checkbox
-          =f.check_box :remember_me
-          ='Remember Me'
-
-  .form-group
-    .col-sm-offset-2.col-sm-3
-      =f.submit 'Sign In', :class => 'btn btn-default'
-
-=render "devise/shared/links"
+          .mdl-card__actions.mdl-card--border
+            = f.submit 'Continue',
+              :class => 'mdl-button mdl-js-button mdl-button--colored'

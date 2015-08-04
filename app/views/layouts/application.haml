@@ -8,9 +8,12 @@
 
   %body
 
-    = render :partial => 'shared/nav'
+    .mdl-layout.mdl-js-layout.mdl-layout--fixed-header.mdl-layout--fixed-drawer
+      = render :partial => 'shared/nav'
+      = render :partial => 'cutoffs/partials/archive',
+        :locals => {:cutoffs => @user_cutoffs, :selected_cutoff => @cutoff}
 
-    .container
-      = render :partial => 'shared/modal'
-      = render :partial => 'shared/alerts'
-      = yield
+      .mdl-layout__content
+        =# render :partial => 'shared/modal'
+        = render :partial => 'shared/alerts'
+        = yield

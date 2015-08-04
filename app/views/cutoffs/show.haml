@@ -1,30 +1,44 @@
-.page-header
-  .pull-left
-    %h2= @cutoff.header
+.mdl-grid
+  .mdl-cell.mdl-cell--2-col
+  .mdl-cell.mdl-cell--8-col
+    .mdl-grid.mdl-grid--no-spacing
+      .mdl-card.mdl-shadow--2dp.mdl-cell.mdl-cell--12-col
+        .mdl-card__title
+          .mdl-card__title-text
+            .mdl-typography--display-1= @cutoff.header
+        .mdl-card__supporting-text
+          .mdl-typography--body-1
+            = @cutoff.notes
+        .mdl-card__actions.mdl-card--border
+          .display-flex
+            = link_to icon('edit'),
+              [:edit, @cutoff],
+              :class => 'mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--primary'
+            &nbsp;&nbsp;
+            = link_to icon('delete'), @cutoff,
+              :class => 'mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--accent',
+              :data => {:method => :delete,
+                :confirm => 'Delete this record?'}
+            .mdl-layout-spacer
+            = link_to '+ New Daily Transaction',
+              [:new, @cutoff, :daily_record],
+              :class => 'mdl-button mdl-js-button mdl-button--raised mdl-button--primary'
 
-    %dl.dl-horizontal
-      %dt Total Budget
-      %dd= number_with_precision(@cutoff.budget, :precision => 2)
-      %dt Total Expense
-      %dd= number_with_precision(@cutoff.expenses, :precision => 2)
-      %dt Total Savings
-      %dd= number_with_precision(@cutoff.savings, :precision => 2)
-      %dt Notes
-      %dd= @cutoff.notes
+.mdl-grid
+  .mdl-cell.mdl-cell--2-col
+  .mdl-cell.mdl-cell--8-col
+    .mdl-grid.mdl-grid--no-spacing
+      %table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp.mdl-cell.mdl-cell--12-col
+        %tbody
+          %tr
+            %td.mdl-data-table__cell--non-numeric Total Budget
+            %td= number_with_precision @cutoff.budget, :precision => 2
+          %tr
+            %td.mdl-data-table__cell--non-numeric Total Expense
+            %td= number_with_precision @cutoff.expenses, :precision => 2
+          %tr
+            %td.mdl-data-table__cell--non-numeric Total Savings
+            %td= number_with_precision @cutoff.savings, :precision => 2
 
-  .pull-right
-    = link_to 'Edit Cutoff', [:edit, @cutoff], :class => 'btn btn-success'
-    = link_to 'Delete', @cutoff,
-      :class => 'btn btn-danger',
-      :data => {:method => :delete,
-        :confirm => 'Delete this record?'}
-    = link_to 'New Cutoff', new_cutoff_path, :class => 'btn btn-primary'
-
-  .clearfix
-
-.row
-  = render :partial => 'cutoffs/partials/archive',
-    :locals => {:cutoffs => @user_cutoffs, :selected_cutoff => @cutoff}
-
-  = render :partial => 'daily_records/partials/list',
-    :locals => {:cutoff => @cutoff}
+= render :partial => 'daily_records/partials/list',
+  :locals => {:cutoff => @cutoff}

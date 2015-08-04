@@ -1,0 +1,12 @@
+.mdl-grid
+  .mdl-cell.mdl-cell--3-col
+  .mdl-cell.mdl-cell--6-col
+    .mdl-grid.mdl-grid--no-spacing
+      .mdl-card.mdl-shadow--2dp.mdl-cell.mdl-cell--12-col
+        .mdl-card__title
+          .mdl-card__title-text
+            .mdl-typography--display-1 New Line Item
+
+        = form_for @form, :url => [@daily_record, @line_item] do |f|
+          = render :partial => '/line_items/partials/form',
+            :locals => {:f => f, :daily_record => @daily_record}

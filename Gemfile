@@ -31,8 +31,6 @@ gem "devise", "~> 3.0.3"
 
 gem 'haml', '~> 4.0.3'
 
-gem 'bootstrap-sass', '~> 3.1.1'
-
 gem 'draper', '~> 1.2.1'
 
 gem 'thin'

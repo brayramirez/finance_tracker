@@ -3,21 +3,17 @@
 -#   cutoff
 -#
 
-.col-md-10
-  .pull-right
-    = link_to 'New Daily Transaction',
-      [:new, cutoff, :daily_record],
-      :class => 'btn btn-primary'
-
-  .clearfix
-
-  %table.table.table-striped.table-hover.table-condensed
-    %thead
-      %tr
-        %th Transaction Date
-        %th Budget
-        %th Expenses
-        %th
-    %tbody
-      = render :partial => 'daily_records/partials/daily_record',
-        :collection => cutoff.daily_records.latest
+.mdl-grid
+  .mdl-cell.mdl-cell--2-col
+  .mdl-cell.mdl-cell--8-col
+    .mdl-grid.mdl-grid--no-spacing
+      %table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp.mdl-cell.mdl-cell--12-col
+        %thead
+          %tr
+            %th.mdl-data-table__cell--non-numeric Transaction Date
+            %th Budget
+            %th Expenses
+            %th.mdl-data-table__cell--non-numeric
+        %tbody
+          = render :partial => 'daily_records/partials/daily_record',
+            :collection => cutoff.daily_records.latest

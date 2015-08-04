@@ -1,6 +1,5 @@
 class CutoffsController < BaseController
 
-  before_filter :init_user_cutoffs, :only => [:show]
   before_filter :init_cutoff, :only => [:show, :edit, :update, :destroy]
   before_filter :init_new_cutoff, :only => [:new, :create]
   before_filter :init_form, :only => [:new, :create, :edit, :update]
@@ -56,11 +55,6 @@ class CutoffsController < BaseController
 
   def init_form
     @form = CutoffForm.new @cutoff
-  end
-
-
-  def init_user_cutoffs
-    @user_cutoffs = current_user.cutoffs
   end
 
 end

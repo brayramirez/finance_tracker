@@ -4,12 +4,16 @@
 -#
 
 %tr
-  %td= link_to daily_record.transaction_date, daily_record
+  %td.mdl-data-table__cell--non-numeric
+    = link_to daily_record.transaction_date, daily_record,
+      :class => 'undecorated-link'
   %td= daily_record.budget
-  %td= number_with_precision(daily_record.line_items.sum(:amount),
-    :precision => 2)
   %td
-    = link_to 'Edit', [:edit, daily_record]
-    = link_to 'Delete', daily_record,
+    = number_with_precision daily_record.line_items.sum(:amount),
+      :precision => 2
+  %td.mdl-data-table__cell--non-numeric
+    = link_to icon('edit', :class => 'md-18'), [:edit, daily_record]
+    &nbsp;&nbsp;
+    = link_to icon('delete', :class => 'md-18'), daily_record,
       :data => {:method => :delete,
         :confirm => 'Delete this record?'}

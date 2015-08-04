@@ -3,34 +3,27 @@
 -#   user
 -#
 
-= form_for [:admin, user],
-  :html => {:class => 'form-horizontal'} do |f|
+= form_for [:admin, user] do |f|
+  .mdl-card__supporting-text
+    .mdl-textfield.mdl-js-textfield.mdl-textfield--full-width.mdl-textfield--floating-label
+      = f.text_field :name, :class => 'mdl-textfield__input'
+      = f.label :name, :class => 'mdl-textfield__label'
 
-  .form-group
-    = f.label :name, :class => 'control-label col-sm-2'
-    .col-sm-3
-      = f.text_field :name, :class => 'form-control'
+    .mdl-textfield.mdl-js-textfield.mdl-textfield--full-width.mdl-textfield--floating-label
+      = f.email_field :email, :class => 'mdl-textfield__input'
+      = f.label :email, :class => 'mdl-textfield__label'
+      %span.mdl-textfield__error Invalid Email
 
-  .form-group
-    = f.label :email, :class => 'control-label col-sm-2'
-    .col-sm-3
-      = f.email_field :email, :class => 'form-control'
+    .mdl-textfield.mdl-js-textfield.mdl-textfield--full-width.mdl-textfield--floating-label
+      = f.password_field :password, :class => 'mdl-textfield__input'
+      = f.label :password, :class => 'mdl-textfield__label'
 
-  .form-group
-    = f.label :password, :class => 'control-label col-sm-2'
-    .col-sm-3
-      = f.password_field :password, :class => 'form-control'
-
-  .form-group
-    = f.label :password_confirmation, 'Re-type Password',
-      :class => 'control-label col-sm-2'
-    .col-sm-3
+    .mdl-textfield.mdl-js-textfield.mdl-textfield--full-width.mdl-textfield--floating-label
       = f.password_field :password_confirmation,
-        :class => 'form-control'
+        :class => 'mdl-textfield__input'
+      = f.label :password_confirmation, 'Re-type Password',
+        :class => 'mdl-textfield__label'
 
-  %hr
-
-  .form-group
-    .col-sm-offset-2.cols-m-4
-      = f.submit 'Save', :class => 'btn btn-primary'
-      = link_to 'Cancel', [:admin, :users], :class => 'btn btn-default'
+  .mdl-card__actions.mdl-card--border
+    = icon_submit_button
+    = icon_cancel_button [:admin, :users]
