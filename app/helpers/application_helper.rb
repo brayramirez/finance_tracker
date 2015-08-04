@@ -15,14 +15,14 @@ module ApplicationHelper
 
   def icon_submit_button
     content_tag :button, :type => :submit, :class => 'mdl-button mdl-js-button mdl-button--primary mdl-button--fab mdl-button--mini-fab' do
-      icon('check')
+      self.icon 'check'
     end
   end
 
 
   def icon_cancel_button path = '#'
     link_to path, :class => 'mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab' do
-      self.icon('arrow_back')
+      self.icon 'arrow_back'
     end
   end
 
