@@ -13,5 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require plugin/material.min.js
-//= reqex-mask-plugin.js
+//= require react
+//= require react_ujs
+//= require components
 //= require_tree .
