@@ -3,17 +3,15 @@
 -#   cutoff
 -#
 
-.mdl-grid
-  .mdl-cell.mdl-cell--2-col
-  .mdl-cell.mdl-cell--8-col
-    .mdl-grid.mdl-grid--no-spacing
-      %table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp.mdl-cell.mdl-cell--12-col
-        %thead
-          %tr
-            %th.mdl-data-table__cell--non-numeric Transaction Date
-            %th Budget
-            %th Expenses
-            %th.mdl-data-table__cell--non-numeric
-        %tbody
-          = render :partial => 'daily_records/partials/daily_record',
-            :collection => cutoff.daily_records.latest
+.mdl-grid.mdl-grid--no-spacing
+  .mdl-cell.mdl-cell--12-col
+    %table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp.mdl-cell.mdl-cell--12-col.unmargined-cell
+      %thead.mdl-color--orange-50
+        %tr
+          %th.mdl-data-table__cell--non-numeric Transaction Date
+          %th Budget
+          %th Expenses
+          %th.mdl-data-table__cell--non-numeric
+      %tbody
+        = render :partial => 'daily_records/partials/daily_record',
+          :collection => cutoff.daily_records.latest

@@ -2,18 +2,21 @@ FinanceTracker::Application.routes.draw do
 
   devise_for :users
 
+  get ':year' => 'cutoffs#index', :as => :cutoffs_by_year
+  post ':year' => 'cutoffs#create'
+
   # get 'transaction/:year/:month' => 'daily_records#index', :as => 'records_archive'
   resources :categories
 
-  resources :cutoffs do
-    resources :daily_records, :only => [:new, :create]
+  resources :cutoffs, :only => [:index, :show, :create, :edit, :update, :destroy] do
+    resources :daily_records, :only => [:create]
   end
 
-  resources :daily_records, :except => [:new, :create] do
-    resources :line_items, :only => [:new, :create]
+  resources :daily_records, :only => [:index, :show, :edit, :update, :destroy] do
+    resources :line_items, :only => [:create]
   end
 
-  resources :line_items, :except => [:new, :create]
+  resources :line_items, :only => [:show, :edit, :update, :destroy]
 
   resources :users, :only => [:edit, :update]
 
@@ -25,7 +28,7 @@ FinanceTracker::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'home#show'
+  root 'cutoffs#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

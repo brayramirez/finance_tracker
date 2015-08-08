@@ -3,12 +3,13 @@
   .mdl-cell.mdl-cell--6-col
     .mdl-grid.mdl-grid--no-spacing
       .mdl-card.mdl-shadow--2dp.mdl-cell.mdl-cell--12-col
-        .mdl-card__title
+        .mdl-card__title.mdl-color--orange-50
           .mdl-card__title-text
             .mdl-typography--display-1
               Edit Cutoff
               %br
               #{@cutoff.header}
 
-        = render :partial => 'cutoffs/partials/form',
-          :locals => {:form => @form}
+        = form_for @form do |f|
+          = render :partial => 'cutoffs/partials/form',
+            :locals => {:f => f, :form => @form}

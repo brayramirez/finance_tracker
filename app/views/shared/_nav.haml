@@ -4,6 +4,8 @@
       .mdl-layout-title Finance Tracker
       .mdl-layout-spacer
       .mdl-navigation
+        = link_to icon('home'), [:root],
+          :class => 'mdl-button mdl-js-button mdl-button--icon'
         - if current_user.admin?
           = link_to 'Users', [:admin, :users],
             :class => 'mdl-navigation__link'

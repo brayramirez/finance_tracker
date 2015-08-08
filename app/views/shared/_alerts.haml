@@ -1,11 +1,11 @@
 - if notice.present?
   .mdl-grid.mdl-color--light-blue-600.mdl-color-text--white
-    = notice
+    %p= notice
 
 
 - if flash[:success].present?
   .mdl-grid.mdl-color--green-600.mdl-color-text--white
-    = flash[:success]
+    %p= flash[:success]
 
 
 - if alert.present? || flash[:error].present?

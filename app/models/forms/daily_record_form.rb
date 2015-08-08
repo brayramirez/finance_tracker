@@ -19,6 +19,7 @@ class DailyRecordForm < Reform::Form
   private
 
   def within_cutoff_date
+    return if self.model.transaction_date.blank?
     return if self.model.cutoff.include?(self.transaction_date)
 
     errors.add(:transaction_date, 'must be within Cutoff Dates')

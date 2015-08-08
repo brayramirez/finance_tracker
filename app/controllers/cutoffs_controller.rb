@@ -1,8 +1,16 @@
 class CutoffsController < BaseController
 
+  before_filter :init_selected_year, :only => [:index, :create]
+  before_filter :init_cutoffs, :only => [:index, :create]
   before_filter :init_cutoff, :only => [:show, :edit, :update, :destroy]
-  before_filter :init_new_cutoff, :only => [:new, :create]
-  before_filter :init_form, :only => [:new, :create, :edit, :update]
+  before_filter :init_new_cutoff, :only => [:index, :create]
+  before_filter :init_form, :only => [:index, :create, :edit, :update]
+  before_filter :init_new_daily_record, :only => [:show]
+  before_filter :init_daily_record_form, :only => [:show]
+
+
+  def index
+  end
 
 
   def create
@@ -13,7 +21,7 @@ class CutoffsController < BaseController
       redirect_to @form.model
     else
       flash[:error] = @form.errors.full_messages
-      render :new
+      render :index
     end
   end
 
@@ -34,7 +42,7 @@ class CutoffsController < BaseController
   def destroy
     @cutoff.destroy
 
-    redirect_to root_path
+    redirect_to [:root]
   end
 
 
@@ -48,6 +56,11 @@ class CutoffsController < BaseController
   end
 
 
+  def init_cutoffs
+    @cutoffs = current_user.cutoffs.latest
+  end
+
+
   def init_cutoff
     @cutoff = current_user.cutoffs.find params[:id]
   end
@@ -55,6 +68,23 @@ class CutoffsController < BaseController
 
   def init_form
     @form = CutoffForm.new @cutoff
+  end
+
+
+  def init_selected_year
+    @selected_year = params[:year] || Date.today.year
+
+    redirect_to cutoffs_path(@selected_year) if Cutoff.invalid_year?(current_user, @selected_year)
+  end
+
+
+  def init_new_daily_record
+    @daily_record = @cutoff.daily_records.new
+  end
+
+
+  def init_daily_record_form
+    @form = DailyRecordForm.new @daily_record
   end
 
 end
