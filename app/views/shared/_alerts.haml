@@ -15,5 +15,6 @@
     - if message.is_a? String
       = message
     - else
-      - message.each do |msg|
-        %p= msg
+      %ul
+        - message.each do |msg|
+          %li= msg

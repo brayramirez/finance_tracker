@@ -6,17 +6,15 @@ class LineItemsController < BaseController
   before_filter :init_form, :only => [:new, :create, :edit, :update]
 
 
-  def new
-  end
-
-
   def create
     if @form.validate params[:line_item]
       @form.save
 
+      flash[:success] = 'Item successfully created.'
       redirect_to [@line_item.daily_record]
     else
-      render 'new'
+      flash[:error] = @form.errors.full_messages
+      render 'daily_records/show'
     end
   end
 
@@ -29,9 +27,11 @@ class LineItemsController < BaseController
     if @form.validate params[:line_item]
       @form.save
 
+      flash[:success] = 'Item successfully updated.'
       redirect_to [@line_item.daily_record]
     else
-      render 'edit'
+      flash[:error] = @form.errors.full_messages
+      render :edit
     end
   end
 

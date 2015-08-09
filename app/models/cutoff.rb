@@ -45,6 +45,16 @@ class Cutoff < ActiveRecord::Base
     def list_by_year year
       where("EXTRACT(YEAR FROM date_from) = ?", year)
     end
+
+
+    def valid_year? user, year
+      user.cutoffs.year_list.include? year
+    end
+
+
+    def invalid_year? user, year
+      !self.valid_year? user, year.to_i
+    end
   end
 
 
@@ -63,6 +73,11 @@ class Cutoff < ActiveRecord::Base
   def include? date
     range = self.date_from..self.date_to
     range === date.to_date
+  end
+
+
+  def year
+    self.date_from.year
   end
 
 

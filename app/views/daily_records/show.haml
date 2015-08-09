@@ -1,41 +1,40 @@
 .mdl-grid
-  .mdl-cell.mdl-cell--2-col
-  .mdl-cell.mdl-cell--8-col
+  .mdl-cell.mdl-cell--6-col
     .mdl-grid.mdl-grid--no-spacing
-      .mdl-card.mdl-shadow--2dp.mdl-cell.mdl-cell--12-col
-        .mdl-card__title
+      .mdl-card.mdl-shadow--2dp.mdl-cell.mdl-cell--12-col.mini-card
+        .mdl-card__title.mdl-color--orange-50
           .mdl-card__title-text
             .mdl-typography--display-1= @daily_record
-        .mdl-card__supporting-text
-          .mdl-typography--body-1
-            = @daily_record.notes
+        - if @daily_record.notes.present?
+          .mdl-card__supporting-text
+            .mdl-typography--body-1
+              = @daily_record.notes
         .mdl-card__actions.mdl-card--border
-          .display-flex
-            = icon_cancel_button @daily_record.cutoff
-            &nbsp;&nbsp;
-            = link_to icon('edit'), [:edit, @daily_record],
-              :class => 'mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--primary'
-            &nbsp;&nbsp;
-            = link_to icon('delete'), @daily_record,
-              :class => 'mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--accent',
-              :data => {:method => :delete, :confirm => 'Delete this record?'}
-            .mdl-layout-spacer
-            = link_to '+ New Line Item',
-              [:new, @daily_record, :line_item],
-              :class => 'mdl-button mdl-js-button mdl-button--raised mdl-button--primary'
+          = icon_cancel_button @daily_record.cutoff
+          = link_to icon('edit'), [:edit, @daily_record],
+            :class => 'mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--primary'
+          = link_to icon('delete'), @daily_record,
+            :class => 'mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--accent',
+            :data => {:method => :delete, :confirm => 'Delete this record?'}
 
-.mdl-grid
-  .mdl-cell.mdl-cell--2-col
-  .mdl-cell.mdl-cell--8-col
     .mdl-grid.mdl-grid--no-spacing
-      %table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp.mdl-cell.mdl-cell--12-col
-        %tbody
-          %tr
-            %td.mdl-data-table__cell--non-numeric Budget
-            %td= number_with_precision @daily_record.budget, :precision => 2
-          %tr
-            %td.mdl-data-table__cell--non-numeric Total Expense
-            %td= number_with_precision @daily_record.expenses, :precision => 2
+      .mdl-card.mdl-shadow--2dp.mdl-cell.mdl-cell--12-col.margined-top
+        = form_for @form, :url => [@daily_record, @line_item] do |f|
+          = render :partial => '/line_items/partials/form',
+            :locals => {:f => f, :form => @form}
 
-= render :partial => 'line_items/partials/list',
-  :locals => {:line_items => @daily_record.line_items}
+  .mdl-cell.mdl-cell--6-col
+    .mdl-grid.mdl-grid--no-spacing
+      .mdl-cell.mdl-cell--12-col
+        %table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp.mdl-cell.mdl-cell--12-col.unmargined-cell
+          %thead.mdl-color--orange-50
+            %tr
+              %th.mdl-date-table__cell--non-numeric Budget
+              %th.mdl-date-table__cell--non-numeric Total Expense
+          %tbody
+            %tr
+              %td= number_with_precision @daily_record.budget, :precision => 2
+              %td= number_with_precision @daily_record.expenses, :precision => 2
+
+    = render :partial => 'line_items/partials/list',
+      :locals => {:daily_record => @daily_record}

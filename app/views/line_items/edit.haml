@@ -3,10 +3,10 @@
   .mdl-cell.mdl-cell--6-col
     .mdl-grid.mdl-grid--no-spacing
       .mdl-card.mdl-shadow--2dp.mdl-cell.mdl-cell--12-col
-        .mdl-card__title
+        .mdl-card__title.mdl-color--orange-50
           .mdl-card__title-text
             .mdl-typography--display-1 Edit Line Item
 
         = form_for @form do |f|
           = render :partial => '/line_items/partials/form',
-            :locals => {:f => f, :daily_record => @line_item.daily_record}
+            :locals => {:f => f, :form => @form}

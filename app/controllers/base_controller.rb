@@ -4,10 +4,6 @@ class BaseController < ApplicationController
   end
 
 
-  def new
-  end
-
-
   def edit
   end
 

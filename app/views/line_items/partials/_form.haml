@@ -1,6 +1,6 @@
 -#
 -# locals:
--#   daily_record
+-#   form
 -#   f
 -#
 
@@ -20,4 +20,5 @@
 
 .mdl-card__actions.mdl-card--border
   = icon_submit_button
-  = icon_cancel_button daily_record
+  - if form.persisted?
+    = icon_cancel_button form.model.daily_record

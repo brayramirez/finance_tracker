@@ -1,44 +1,43 @@
 .mdl-grid
-  .mdl-cell.mdl-cell--2-col
-  .mdl-cell.mdl-cell--8-col
+  .mdl-cell.mdl-cell--6-col
     .mdl-grid.mdl-grid--no-spacing
       .mdl-card.mdl-shadow--2dp.mdl-cell.mdl-cell--12-col
-        .mdl-card__title
+        .mdl-card__title.mdl-color--orange-50
           .mdl-card__title-text
             .mdl-typography--display-1= @cutoff.header
         .mdl-card__supporting-text
           .mdl-typography--body-1
             = @cutoff.notes
         .mdl-card__actions.mdl-card--border
-          .display-flex
-            = link_to icon('edit'),
-              [:edit, @cutoff],
-              :class => 'mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--primary'
-            &nbsp;&nbsp;
-            = link_to icon('delete'), @cutoff,
-              :class => 'mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--accent',
-              :data => {:method => :delete,
-                :confirm => 'Delete this record?'}
-            .mdl-layout-spacer
-            = link_to '+ New Daily Transaction',
-              [:new, @cutoff, :daily_record],
-              :class => 'mdl-button mdl-js-button mdl-button--raised mdl-button--primary'
+          = icon_cancel_button cutoffs_path(:year => @cutoff.year)
+          = link_to icon('edit'),
+            [:edit, @cutoff],
+            :class => 'mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--primary'
+          = link_to icon('delete'), @cutoff,
+            :class => 'mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--accent',
+            :data => {:method => :delete,
+              :confirm => 'Delete this record?'}
 
-.mdl-grid
-  .mdl-cell.mdl-cell--2-col
-  .mdl-cell.mdl-cell--8-col
     .mdl-grid.mdl-grid--no-spacing
-      %table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp.mdl-cell.mdl-cell--12-col
-        %tbody
-          %tr
-            %td.mdl-data-table__cell--non-numeric Total Budget
-            %td= number_with_precision @cutoff.budget, :precision => 2
-          %tr
-            %td.mdl-data-table__cell--non-numeric Total Expense
-            %td= number_with_precision @cutoff.expenses, :precision => 2
-          %tr
-            %td.mdl-data-table__cell--non-numeric Total Savings
-            %td= number_with_precision @cutoff.savings, :precision => 2
+      .mdl-card.mdl-shadow--2dp.mdl-cell.mdl-cell--12-col.margined-top
+        = form_for @form, :url => [@cutoff, @daily_record] do |f|
+          = render :partial => 'daily_records/partials/form',
+            :locals => {:f => f, :form => @form, :cutoff => @cutoff}
 
-= render :partial => 'daily_records/partials/list',
-  :locals => {:cutoff => @cutoff}
+  .mdl-cell.mdl-cell--6-col
+    .mdl-grid.mdl-grid--no-spacing
+      .mdl-cell.mdl-cell--12-col
+        %table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp.mdl-cell.mdl-cell--12-col.unmargined-cell
+          %thead.mdl-color--orange-50
+            %tr
+              %th Total Budget
+              %th Total Expense
+              %th Total Savings
+          %tbody
+            %tr
+              %td= number_with_precision @cutoff.budget, :precision => 2
+              %td= number_with_precision @cutoff.expenses, :precision => 2
+              %td= number_with_precision @cutoff.savings, :precision => 2
+
+    = render :partial => 'daily_records/partials/list',
+      :locals => {:cutoff => @cutoff}
