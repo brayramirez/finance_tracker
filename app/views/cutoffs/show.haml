@@ -9,7 +9,7 @@
           .mdl-typography--body-1
             = @cutoff.notes
         .mdl-card__actions.mdl-card--border
-          = icon_cancel_button cutoffs_by_year_path(@cutoff.year)
+          = icon_cancel_button cutoffs_path(:year => @cutoff.year)
           = link_to icon('edit'),
             [:edit, @cutoff],
             :class => 'mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--primary'

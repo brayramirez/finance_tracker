@@ -1,11 +1,11 @@
 - if notice.present?
   .mdl-grid.mdl-color--light-blue-600.mdl-color-text--white
-    %p= notice
+    = notice
 
 
 - if flash[:success].present?
   .mdl-grid.mdl-color--green-600.mdl-color-text--white
-    %p= flash[:success]
+    = flash[:success]
 
 
 - if alert.present? || flash[:error].present?
@@ -15,5 +15,6 @@
     - if message.is_a? String
       = message
     - else
-      - message.each do |msg|
-        %p= msg
+      %ul
+        - message.each do |msg|
+          %li= msg
