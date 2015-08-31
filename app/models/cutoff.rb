@@ -48,6 +48,8 @@ class Cutoff < ActiveRecord::Base
 
 
     def valid_year? user, year
+      return true if user.cutoffs.blank?
+
       user.cutoffs.year_list.include? year
     end
 
