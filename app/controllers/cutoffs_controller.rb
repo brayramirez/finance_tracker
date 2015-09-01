@@ -72,9 +72,9 @@ class CutoffsController < BaseController
 
 
   def init_selected_year
-    @selected_year = params[:year] || Date.today.year
+    @selected_year = params[:year] || current_user.cutoffs.year_list.last || Date.today.year
 
-    redirect_to cutoffs_path(:year => @selected_year) if Cutoff.invalid_year?(current_user, @selected_year)
+    redirect_to cutoffs_path(:year => @selected_year) if current_user.cutoffs.invalid_year?(current_user, @selected_year)
   end
 
 
